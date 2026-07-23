@@ -1,0 +1,68 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMbzm15p0FtoDgNHG/yqGR+",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP6\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "AFULRps7YpkA",
+        "outputId": "a865a741-4e61-43e8-aab6-d62daa359149"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original image hash: d50630bee2bf9926344781042d10cb09377730818efda8e80f9eeec21008a9b0\n",
+            "Forensic copy hash : d50630bee2bf9926344781042d10cb09377730818efda8e80f9eeec21008a9b0\n",
+            "Match: VERIFIED - exact bit-stream copy\n"
+          ]
+        }
+      ],
+      "source": [
+        "import hashlib\n",
+        "def sha256_of(filename):\n",
+        "    with open(filename, \"rb\") as f:\n",
+        "        return hashlib.sha256(f.read()).hexdigest()\n",
+        "with open(\"original_disk.img\", \"wb\") as f:\n",
+        "    f.write(b\"HEADER\" + bytes(range(256)) * 4 + b\"FOOTER\")\n",
+        "with open(\"original_disk.img\", \"rb\") as src, open(\"forensic_copy.img\", \"wb\") as dst:\n",
+        "    dst.write(src.read())\n",
+        "original_hash = sha256_of(\"original_disk.img\")\n",
+        "copy_hash = sha256_of(\"forensic_copy.img\")\n",
+        "print(\"Original image hash:\", original_hash)\n",
+        "print(\"Forensic copy hash :\", copy_hash)\n",
+        "print(\"Match:\", \"VERIFIED - exact bit-stream copy\" if original_hash == copy_hash else\n",
+        "\"MISMATCH - copy corrupted\")"
+      ]
+    }
+  ]
+}
