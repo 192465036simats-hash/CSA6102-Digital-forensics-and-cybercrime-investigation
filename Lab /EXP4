@@ -1,0 +1,64 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyM1QdL+mkJunOTCGyWyJFMT",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP4\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Iczk78X0XgL4",
+        "outputId": "2bb1b3dc-b85c-4860-e215-215d4994a5cf"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "OSINT Domain Reconnaissance\n",
+            "www.google.com                 -> 142.251.150.119\n",
+            "www.python.org                 -> 151.101.0.223\n",
+            "notarealdomain12345.com        -> Could not resolve (invalid/unreachable)\n"
+          ]
+        }
+      ],
+      "source": [
+        "import socket\n",
+        "domains = [\"www.google.com\", \"www.python.org\", \"notarealdomain12345.com\"]\n",
+        "print(\"OSINT Domain Reconnaissance\")\n",
+        "for d in domains:\n",
+        "    try:\n",
+        "        ip = socket.gethostbyname(d)\n",
+        "        print(f\"{d:30s} -> {ip}\")\n",
+        "    except socket.gaierror:\n",
+        "        print(f\"{d:30s} -> Could not resolve (invalid/unreachable)\")"
+      ]
+    }
+  ]
+}
