@@ -1,0 +1,72 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNxDwNzggx5L3MH8PqtVGCf",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP7\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 3,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "bwbg0lKKY_Bv",
+        "outputId": "b974b880-8994-4d13-9181-68fdb658a083"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "photo.txt       -> Actual type: JPEG image\n",
+            "document.dat    -> Actual type: PDF document\n"
+          ]
+        }
+      ],
+      "source": [
+        "SIGNATURES = {\n",
+        "    b\"\\xFF\\xD8\\xFF\": \"JPEG image\",\n",
+        "    b\"\\x89PNG\": \"PNG image\",\n",
+        "    b\"%PDF\": \"PDF document\",\n",
+        "    b\"PK\\x03\\x04\": \"ZIP archive (or .docx/.xlsx)\",\n",
+        "}\n",
+        "def identify_file(path):\n",
+        "    with open(path, \"rb\") as f:\n",
+        "        header = f.read(8)\n",
+        "        for sig, filetype in SIGNATURES.items():\n",
+        "            if header.startswith(sig):\n",
+        "                return filetype\n",
+        "    return \"Unknown file type\"\n",
+        "with open(\"photo.txt\", \"wb\") as f: # renamed JPEG\n",
+        "    f.write(b\"\\xFF\\xD8\\xFF\\xE0\" + b\"\\x00\" * 20)\n",
+        "with open(\"document.dat\", \"wb\") as f: # renamed PDF\n",
+        "    f.write(b\"%PDF-1.4\" + b\"\\x00\" * 20)\n",
+        "for filename in [\"photo.txt\", \"document.dat\"]:\n",
+        "    print(f\"{filename:15s} -> Actual type: {identify_file(filename)}\")"
+      ]
+    }
+  ]
+}
