@@ -1,0 +1,71 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOPVZ4tG3qwVCKfGTyUINTr",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP2\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 4,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "EBwTZY6iWBtw",
+        "outputId": "abd0e158-a450-472b-9861-b73792bbc342"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "=== Chain of Custody Log ===\n",
+            "2026-07-23 05:02:29.960451 - SEIZED by Officer A - hash=b7eb05cf41efbcc50adc36b12679ce4f12de58460e59500eb6bb62858810f84c\n",
+            "2026-07-23 05:02:29.960783 - RECEIVED by Analyst B - integrity VERIFIED\n"
+          ]
+        }
+      ],
+      "source": [
+        "import hashlib, datetime\n",
+        "def sha256_of(filename):\n",
+        "    with open(filename, \"rb\") as f:\n",
+        "        return hashlib.sha256(f.read()).hexdigest()\n",
+        "with open(\"evidence.txt\", \"w\") as f:\n",
+        "    f.write(\"Suspect chat log: meeting at 10pm, bring the drive.\")\n",
+        "seizure_hash = sha256_of(\"evidence.txt\")\n",
+        "custody_log = []\n",
+        "custody_log.append(f\"{datetime.datetime.now()} - SEIZED by Officer A - hash={seizure_hash}\")\n",
+        "handoff_hash = sha256_of(\"evidence.txt\")\n",
+        "if handoff_hash == seizure_hash:\n",
+        "    custody_log.append(f\"{datetime.datetime.now()} - RECEIVED by Analyst B - integrity VERIFIED\")\n",
+        "else:\n",
+        "    custody_log.append(f\"{datetime.datetime.now()} - RECEIVED by Analyst B - integrity FAILED (tampered!)\")\n",
+        "print(\"=== Chain of Custody Log ===\")\n",
+        "for entry in custody_log:\n",
+        "    print(entry)"
+      ]
+    }
+  ]
+}
