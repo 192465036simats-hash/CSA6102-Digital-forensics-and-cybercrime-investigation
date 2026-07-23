@@ -1,0 +1,91 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOswJl89FDBSigjYl46AeAO",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP5\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "89l7jFugYK5N",
+        "outputId": "51dc291e-9bb3-4ed4-fdce-bb0f82f04c80"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "=== Investigation Lifecycle: Case CASE-2026-014 ===\n",
+            "Generated: 2026-07-23 05:10:33.303839\n",
+            "\n",
+            "[Identification]\n",
+            " Incident reported for case CASE-2026-014. Devices/logs\n",
+            "identified for review.\n",
+            "\n",
+            "[Collection]\n",
+            " 3 item(s) collected: laptop_disk_image.dd,\n",
+            "router_traffic.pcap,\n",
+            "email_headers.txt\n",
+            "\n",
+            "[Preservation]\n",
+            " All items hashed (SHA-256) and stored in a write-protected\n",
+            "evidence folder.\n",
+            "\n",
+            "[Analysis]\n",
+            " Log files and file metadata examined for indicators of\n",
+            "compromise.\n",
+            "\n",
+            "[Reporting]\n",
+            " Findings compiled into a structured forensic report for legal\n",
+            "review.\n",
+            "\n"
+          ]
+        }
+      ],
+      "source": [
+        "import datetime\n",
+        "def investigation_report(case_id, evidence_list):\n",
+        "    stages = {\n",
+        "        \"Identification\": f\"Incident reported for case {case_id}. Devices/logs\\nidentified for review.\",\n",
+        "        \"Collection\": f\"{len(evidence_list)} item(s) collected: {',\\n'.join(evidence_list)}\",\n",
+        "        \"Preservation\": \"All items hashed (SHA-256) and stored in a write-protected\\nevidence folder.\",\n",
+        "        \"Analysis\": \"Log files and file metadata examined for indicators of\\ncompromise.\",\n",
+        "        \"Reporting\": \"Findings compiled into a structured forensic report for legal\\nreview.\",\n",
+        "    }\n",
+        "    print(f\"=== Investigation Lifecycle: Case {case_id} ===\")\n",
+        "    print(f\"Generated: {datetime.datetime.now()}\\n\")\n",
+        "    for stage, detail in stages.items():\n",
+        "        print(f\"[{stage}]\")\n",
+        "        print(f\" {detail}\\n\")\n",
+        "investigation_report(\"CASE-2026-014\", [\"laptop_disk_image.dd\", \"router_traffic.pcap\",\n",
+        "\"email_headers.txt\"])"
+      ]
+    }
+  ]
+}
