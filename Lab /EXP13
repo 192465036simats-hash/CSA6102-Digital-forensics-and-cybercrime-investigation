@@ -1,0 +1,91 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOAZu4fFvztzZYiS+djpm6Q",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP13\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "3vPeu05PcIvc",
+        "outputId": "aff187f6-7ffe-41ba-e3e1-9f5aa73f29a5"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "DIGITAL FORENSIC INVESTIGATION REPORT\n",
+            "Case ID: CASE-2026-014\n",
+            "Investigator: Analyst B\n",
+            "Report generated: 2026-07-23 05:28:09.312091\n",
+            "---------------------------------------------\n",
+            "FINDINGS:\n",
+            " 1. 203.0.113.99 attempted 5 failed logins within 20 seconds (log file evidence).\n",
+            " 2. SHA-256 hash of evidence file verified unchanged throughout custody.\n",
+            " 3. Email header traced to a spoofed domain via suspicious relay server.\n",
+            "---------------------------------------------\n",
+            "CONCLUSION:\n",
+            " Evidence indicates unauthorized access consistent with a\n",
+            " brute-force attack. Recommend IP block and password reset.\n",
+            " This report is suitable for legal review and expert testimony.\n"
+          ]
+        }
+      ],
+      "source": [
+        "import datetime\n",
+        "def generate_forensic_report(case_id, findings, investigator):\n",
+        "    lines = []\n",
+        "    lines.append(\"DIGITAL FORENSIC INVESTIGATION REPORT\")\n",
+        "    lines.append(f\"Case ID: {case_id}\")\n",
+        "    lines.append(f\"Investigator: {investigator}\")\n",
+        "    lines.append(f\"Report generated: {datetime.datetime.now()}\")\n",
+        "    lines.append(\"-\" * 45)\n",
+        "    lines.append(\"FINDINGS:\")\n",
+        "    for i, finding in enumerate(findings, 1):\n",
+        "        lines.append(f\" {i}. {finding}\")\n",
+        "    lines.append(\"-\" * 45)\n",
+        "    lines.append(\"CONCLUSION:\")\n",
+        "    lines.append(\" Evidence indicates unauthorized access consistent with a\")\n",
+        "    lines.append(\" brute-force attack. Recommend IP block and password reset.\")\n",
+        "    lines.append(\" This report is suitable for legal review and expert testimony.\")\n",
+        "    return \"\\n\".join(lines)\n",
+        "findings = [\n",
+        "    \"203.0.113.99 attempted 5 failed logins within 20 seconds (log file evidence).\",\n",
+        "    \"SHA-256 hash of evidence file verified unchanged throughout custody.\",\n",
+        "    \"Email header traced to a spoofed domain via suspicious relay server.\",\n",
+        "]\n",
+        "report = generate_forensic_report(\"CASE-2026-014\", findings, \"Analyst B\")\n",
+        "print(report)\n",
+        "with open(\"forensic_report.txt\", \"w\") as f:\n",
+        "    f.write(report)"
+      ]
+    }
+  ]
+}
