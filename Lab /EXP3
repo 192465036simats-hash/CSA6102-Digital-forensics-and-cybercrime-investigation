@@ -1,0 +1,85 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOwTTMnjSgRFDKnZzecf6CA",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP3\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "cBLaeWsoWzIp",
+        "outputId": "572c9050-a187-47b3-d6b2-df72cba8d76b"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "From: support@paypal.com\n",
+            "Subject: Your monthly statement\n",
+            "Verdict: Looks legitimate\n",
+            "\n",
+            "From: alert@paypal-secure-verify.com\n",
+            "Subject: URGENT: Verify your account\n",
+            "Verdict: PHISHING SUSPECTED\n",
+            " - Urgency/pressure language detected\n",
+            " - Raw IP address link found in body\n",
+            " - Suspicious sender domain naming pattern\n"
+          ]
+        }
+      ],
+      "source": [
+        "import re\n",
+        "def check_email(sender, subject, body):\n",
+        "  flags = []\n",
+        "  if re.search(r\"(urgent|verify your account|suspended|click here)\", body,\n",
+        "                re.IGNORECASE):\n",
+        "    flags.append(\"Urgency/pressure language detected\")\n",
+        "  if re.search(r\"\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\", body):\n",
+        "    flags.append(\"Raw IP address link found in body\")\n",
+        "  domain = sender.split(\"@\")[-1]\n",
+        "  if any(k in domain.lower() for k in [\"secure\",\"verify\",\"update\"]) and \"@gmail\" not \\\n",
+        "      in sender:\n",
+        "    flags.append(\"Suspicious sender domain naming pattern\")\n",
+        "  return flags\n",
+        "emails = [\n",
+        "  (\"support@paypal.com\", \"Your monthly statement\", \"Please find your statement attached.\"),\n",
+        "  (\"alert@paypal-secure-verify.com\", \"URGENT: Verify your account\", \"Click here: http://192.168.10.5/login\"),\n",
+        "]\n",
+        "for sender, subject, body in emails:\n",
+        "  issues = check_email(sender, subject, body)\n",
+        "  verdict = \"PHISHING SUSPECTED\" if issues else \"Looks legitimate\"\n",
+        "  print(f\"\\nFrom: {sender}\\nSubject: {subject}\\nVerdict: {verdict}\")\n",
+        "  for i in issues:\n",
+        "    print(\" -\", i)"
+      ]
+    }
+  ]
+}
