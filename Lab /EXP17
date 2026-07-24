@@ -1,0 +1,86 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyO0Tmvzv54p9h4QG1cHkUeO",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP17\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "RdFNOp8dOQm7",
+        "outputId": "73cf43cc-2caa-40c0-b7b7-2ffc90f9dff1"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "    Attempt   Result\n",
+            "0     admin   Failed\n",
+            "1    123456   Failed\n",
+            "2  password   Failed\n",
+            "3  admin123  Success\n",
+            "SQL Injection Detected: ' OR '1'='1\n",
+            "SQL Injection Detected: admin' --\n",
+            "Directory Traversal Detected: ../../etc/passwd\n",
+            "Directory Traversal Detected: ../admin/config\n"
+          ]
+        }
+      ],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "attempts=[\"admin\",\"123456\",\"password\",\"admin123\"]\n",
+        "correct=\"admin123\"\n",
+        "\n",
+        "logs=[]\n",
+        "\n",
+        "for a in attempts:\n",
+        "    logs.append([a,\"Success\" if a==correct else \"Failed\"])\n",
+        "\n",
+        "df=pd.DataFrame(logs,columns=[\"Attempt\",\"Result\"])\n",
+        "print(df)\n",
+        "\n",
+        "payloads=[\"' OR '1'='1\",\"admin' --\",\"normaluser\"]\n",
+        "\n",
+        "for p in payloads:\n",
+        "    if \"' OR\" in p.upper() or \"--\" in p:\n",
+        "        print(\"SQL Injection Detected:\",p)\n",
+        "\n",
+        "paths=[\"../../etc/passwd\",\"../admin/config\",\"/home/user\"]\n",
+        "\n",
+        "for p in paths:\n",
+        "    if \"../\" in p:\n",
+        "        print(\"Directory Traversal Detected:\",p)\n",
+        "\n",
+        "df.to_csv(\"attack_logs.csv\",index=False)"
+      ]
+    }
+  ]
+}
