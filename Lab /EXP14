@@ -1,0 +1,83 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOXEwyeRV2WDmvmDJxA2rSJ",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP14\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "tqU_pMhYNIKy",
+        "outputId": "d5e5edb4-961e-4ea1-9aee-46718dc811ff"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Risk Score: 70\n",
+            "                                       URL                     Domain  \\\n",
+            "0  http://paypa1-security-login.com/verify  paypa1-security-login.com   \n",
+            "\n",
+            "   Suspicious  \n",
+            "0        True  \n"
+          ]
+        }
+      ],
+      "source": [
+        "import re\n",
+        "import pandas as pd\n",
+        "\n",
+        "sender=\"support@paypa1.com\"\n",
+        "body=\"Verify now: http://paypa1-security-login.com/verify\"\n",
+        "\n",
+        "trusted=[\"paypal.com\",\"google.com\",\"microsoft.com\"]\n",
+        "\n",
+        "urls=re.findall(r'https?://[^\\s]+',body)\n",
+        "sender_domain=sender.split(\"@\")[1]\n",
+        "\n",
+        "data=[]\n",
+        "\n",
+        "for url in urls:\n",
+        "    domain=url.split(\"//\")[1].split(\"/\")[0]\n",
+        "    suspicious=(domain not in trusted) or any(c.isdigit() for c in domain)\n",
+        "    data.append([url,domain,suspicious])\n",
+        "\n",
+        "risk=50 if sender_domain not in trusted else 0\n",
+        "risk+=20*len(urls)\n",
+        "\n",
+        "df=pd.DataFrame(data,columns=[\"URL\",\"Domain\",\"Suspicious\"])\n",
+        "print(\"Risk Score:\",risk)\n",
+        "print(df)\n",
+        "\n",
+        "df.to_csv(\"phishing_report.csv\",index=False)"
+      ]
+    }
+  ]
+}
