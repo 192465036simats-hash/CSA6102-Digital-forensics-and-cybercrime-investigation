@@ -1,0 +1,75 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMg1Hct5ypsXHGxJhNJBKV2",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP15\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "GlO1u9CJNaWS",
+        "outputId": "1322c333-8616-4373-fed4-e389c9794c79"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "                                MD5                                      SHA1  \\\n",
+            "0  132692261074ea65a4f2d8779d777166  97c08c1f052e0052f198396dc4cf301894af3c83   \n",
+            "\n",
+            "                                              SHA256  \n",
+            "0  049d7a35b8769f9234cf06242ef41f7a5c026242136648...  \n"
+          ]
+        }
+      ],
+      "source": [
+        "import hashlib\n",
+        "import pandas as pd\n",
+        "\n",
+        "with open(\"sample.txt\",\"w\") as f:\n",
+        "    f.write(\"Sample File\")\n",
+        "\n",
+        "with open(\"sample.txt\",\"rb\") as f:\n",
+        "    data=f.read()\n",
+        "\n",
+        "md5=hashlib.md5(data).hexdigest()\n",
+        "sha1=hashlib.sha1(data).hexdigest()\n",
+        "sha256=hashlib.sha256(data).hexdigest()\n",
+        "\n",
+        "df=pd.DataFrame([[md5,sha1,sha256]],\n",
+        "                columns=[\"MD5\",\"SHA1\",\"SHA256\"])\n",
+        "\n",
+        "print(df)\n",
+        "\n",
+        "df.to_csv(\"malware_hash_database.csv\",index=False)"
+      ]
+    }
+  ]
+}
