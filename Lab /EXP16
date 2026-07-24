@@ -1,0 +1,99 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNVzIJLFYYTdPiP79M3CNvo",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP16\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "pl1J4rqbN-BQ",
+        "outputId": "c048190a-a8d8-4f55-9862-f2a9bc861e3b"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "     Family             Domain            IP Extension\n",
+            "0  WannaCry    kill-switch.com  192.168.1.10    .wncry\n",
+            "1     Locky  locky-payment.net     10.0.0.20    .locky\n",
+            "\n",
+            "rule WannaCry\n",
+            "{\n",
+            " strings:\n",
+            "  $ext=\".wncry\"\n",
+            "  $dom=\"kill-switch.com\"\n",
+            " condition:\n",
+            "  any of them\n",
+            "}\n",
+            "\n",
+            "\n",
+            "rule Locky\n",
+            "{\n",
+            " strings:\n",
+            "  $ext=\".locky\"\n",
+            "  $dom=\"locky-payment.net\"\n",
+            " condition:\n",
+            "  any of them\n",
+            "}\n",
+            "\n"
+          ]
+        }
+      ],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "data=[\n",
+        "[\"WannaCry\",\"kill-switch.com\",\"192.168.1.10\",\".wncry\"],\n",
+        "[\"Locky\",\"locky-payment.net\",\"10.0.0.20\",\".locky\"]\n",
+        "]\n",
+        "\n",
+        "df=pd.DataFrame(data,\n",
+        "columns=[\"Family\",\"Domain\",\"IP\",\"Extension\"])\n",
+        "\n",
+        "print(df)\n",
+        "\n",
+        "for _,r in df.iterrows():\n",
+        "    print(f\"\"\"\n",
+        "rule {r['Family']}\n",
+        "{{\n",
+        " strings:\n",
+        "  $ext=\"{r['Extension']}\"\n",
+        "  $dom=\"{r['Domain']}\"\n",
+        " condition:\n",
+        "  any of them\n",
+        "}}\n",
+        "\"\"\")\n",
+        "\n",
+        "df.to_csv(\"ransomware_iocs.csv\",index=False)"
+      ]
+    }
+  ]
+}
