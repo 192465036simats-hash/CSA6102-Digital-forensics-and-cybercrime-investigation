@@ -1,0 +1,74 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOHsQd3F/znJLUOyfUTZHb6",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP27\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ouJZRIwu8hje",
+        "outputId": "8f682435-16bb-4111-90b6-68d30428a17c"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "File size: 5000 bytes -> allocated: 8192 bytes, slack space: 3192 bytes\n",
+            "Experiment 10: All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "CLUSTER_SIZE = 4096\n",
+        "\n",
+        "def calculate_slack_space(file_size, cluster_size=CLUSTER_SIZE):\n",
+        "    clusters_needed = -(-file_size // cluster_size)\n",
+        "    allocated_space = clusters_needed * cluster_size\n",
+        "    slack_space = allocated_space - file_size\n",
+        "    return allocated_space, slack_space\n",
+        "\n",
+        "file_size = 5000\n",
+        "allocated, slack = calculate_slack_space(file_size)\n",
+        "\n",
+        "print(f\"File size: {file_size} bytes -> allocated: {allocated} bytes, slack space: {slack} bytes\")\n",
+        "\n",
+        "def test_experiment10():\n",
+        "    assert allocated == 8192\n",
+        "    assert slack == 8192 - 5000\n",
+        "    allocated2, slack2 = calculate_slack_space(4096)\n",
+        "    assert slack2 == 0\n",
+        "    print(\"Experiment 10: All test cases passed.\")\n",
+        "\n",
+        "test_experiment10()"
+      ]
+    }
+  ]
+}
