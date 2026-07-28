@@ -1,0 +1,93 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyO5tOGLoM58LRcHcdN7+gVG",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "J_A-T6Am4yX-",
+        "outputId": "7cd32348-a241-4207-c99b-8d3819c7bc15"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Physical image size: 68 bytes\n",
+            "Logical image files: ['photo.jpg', 'report.docx']\n",
+            "Sparse image files: ['report.docx']\n",
+            "Experiment 3: All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "import os\n",
+        "\n",
+        "os.makedirs(\"acquisition_demo/source\", exist_ok=True)\n",
+        "source = \"acquisition_demo/source\"\n",
+        "\n",
+        "with open(os.path.join(source, \"report.docx\"), \"w\") as f:\n",
+        "    f.write(\"Confidential quarterly report.\")\n",
+        "\n",
+        "with open(os.path.join(source, \"photo.jpg\"), \"w\") as f:\n",
+        "    f.write(\"FAKEJPEGDATA\")\n",
+        "\n",
+        "raw_disk = b\"REPORTDOCX_CONTENT\" + b\"\\x00\" * 20 + b\"DELETED_INVOICE_DATA\" + b\"\\x00\" * 10\n",
+        "\n",
+        "def physical_acquisition(raw_bytes):\n",
+        "    return bytes(raw_bytes)\n",
+        "\n",
+        "def logical_acquisition(folder):\n",
+        "    return {f: open(os.path.join(folder, f), \"rb\").read() for f in os.listdir(folder)}\n",
+        "\n",
+        "def sparse_acquisition(folder, targets):\n",
+        "    return {f: open(os.path.join(folder, f), \"rb\").read() for f in targets if f in os.listdir(folder)}\n",
+        "\n",
+        "physical_image = physical_acquisition(raw_disk)\n",
+        "logical_image = logical_acquisition(source)\n",
+        "sparse_image = sparse_acquisition(source, [\"report.docx\"])\n",
+        "\n",
+        "print(\"Physical image size:\", len(physical_image), \"bytes\")\n",
+        "print(\"Logical image files:\", list(logical_image.keys()))\n",
+        "print(\"Sparse image files:\", list(sparse_image.keys()))\n",
+        "\n",
+        "def test_experiment3():\n",
+        "    assert physical_image == raw_disk\n",
+        "    assert b\"DELETED_INVOICE_DATA\" in physical_image\n",
+        "    assert set(logical_image.keys()) == {\"report.docx\", \"photo.jpg\"}\n",
+        "    assert set(sparse_image.keys()) == {\"report.docx\"}\n",
+        "    print(\"Experiment 3: All test cases passed.\")\n",
+        "\n",
+        "test_experiment3()"
+      ]
+    }
+  ]
+}
