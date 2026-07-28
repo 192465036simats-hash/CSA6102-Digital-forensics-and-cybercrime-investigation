@@ -1,0 +1,103 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyO2MadEtbaeKCG7Me3wgt+7",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP28\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "9PBP6Tm989G0",
+        "outputId": "3fb6eee2-e1d2-4a06-daa0-1c3faf75549c"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "{\n",
+            "  \"case_id\": \"CASE-2026-014\",\n",
+            "  \"sha256\": \"5761dda7d7476e1b92c42bcb9454f9c018f7b70adcac81879551e70c6f42f4a1\",\n",
+            "  \"suspicious_keyword_found\": true,\n",
+            "  \"status\": \"Evidence Verified\"\n",
+            "}\n",
+            "Experiment 11: All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "import hashlib, json\n",
+        "\n",
+        "def acquire(path):\n",
+        "    with open(path, \"rb\") as f:\n",
+        "        return f.read()\n",
+        "\n",
+        "def hash_data(data):\n",
+        "    return hashlib.sha256(data).hexdigest()\n",
+        "\n",
+        "def verify_integrity(data, expected_hash):\n",
+        "    return hash_data(data) == expected_hash\n",
+        "\n",
+        "def analyze(data, keyword: bytes):\n",
+        "    return keyword in data\n",
+        "\n",
+        "def generate_report(case_id, file_hash, keyword_found):\n",
+        "    return {\n",
+        "        \"case_id\": case_id,\n",
+        "        \"sha256\": file_hash,\n",
+        "        \"suspicious_keyword_found\": keyword_found,\n",
+        "        \"status\": \"Evidence Verified\" if keyword_found else \"No Match\"\n",
+        "    }\n",
+        "\n",
+        "evidence_path = \"workflow_evidence.txt\"\n",
+        "\n",
+        "with open(evidence_path, \"w\") as f:\n",
+        "    f.write(\"Transfer $50000 to account 99881122 immediately, do not report.\")\n",
+        "\n",
+        "acquired_data = acquire(evidence_path)\n",
+        "evidence_hash = hash_data(acquired_data)\n",
+        "integrity_ok = verify_integrity(acquired_data, evidence_hash)\n",
+        "keyword_found = analyze(acquired_data, b\"99881122\")\n",
+        "report = generate_report(\"CASE-2026-014\", evidence_hash, keyword_found)\n",
+        "\n",
+        "print(json.dumps(report, indent=2))\n",
+        "\n",
+        "def test_experiment11():\n",
+        "    assert integrity_ok is True\n",
+        "    assert keyword_found is True\n",
+        "    assert report[\"status\"] == \"Evidence Verified\"\n",
+        "    tampered = acquired_data.replace(b\"50000\", b\"99999\")\n",
+        "    assert verify_integrity(tampered, evidence_hash) is False\n",
+        "    print(\"Experiment 11: All test cases passed.\")\n",
+        "\n",
+        "test_experiment11()"
+      ]
+    }
+  ]
+}
