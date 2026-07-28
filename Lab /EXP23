@@ -1,0 +1,84 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNPFBojkCvBJEl4Ufi3Xtmo",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP23\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-yxaxeVg59wP",
+        "outputId": "91790cac-490f-457a-acb0-e7bacd11d882"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original hash: c92ac366ce8d06178734ed2133bb404fa2d3df37c9db27ab4cc293683591da47\n",
+            "Copy hash: c92ac366ce8d06178734ed2133bb404fa2d3df37c9db27ab4cc293683591da47\n",
+            "Experiment 6: All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "import os, hashlib\n",
+        "\n",
+        "original_path = \"original_evidence.bin\"\n",
+        "\n",
+        "with open(original_path, \"wb\") as f:\n",
+        "    f.write(os.urandom(1024))\n",
+        "\n",
+        "def bit_stream_copy(src_path, dst_path):\n",
+        "    with open(src_path, \"rb\") as src, open(dst_path, \"wb\") as dst:\n",
+        "        dst.write(src.read())\n",
+        "\n",
+        "copy_path = \"bitstream_copy.bin\"\n",
+        "bit_stream_copy(original_path, copy_path)\n",
+        "\n",
+        "def sha256_of_file(path):\n",
+        "    with open(path, \"rb\") as f:\n",
+        "        return hashlib.sha256(f.read()).hexdigest()\n",
+        "\n",
+        "original_hash = sha256_of_file(original_path)\n",
+        "copy_hash = sha256_of_file(copy_path)\n",
+        "\n",
+        "print(\"Original hash:\", original_hash)\n",
+        "print(\"Copy hash:\", copy_hash)\n",
+        "\n",
+        "def test_experiment6():\n",
+        "    assert os.path.getsize(original_path) == os.path.getsize(copy_path)\n",
+        "    assert original_hash == copy_hash\n",
+        "    print(\"Experiment 6: All test cases passed.\")\n",
+        "\n",
+        "test_experiment6()"
+      ]
+    }
+  ]
+}
