@@ -1,0 +1,87 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMDeABF87XiWtK9OhK3BggU",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP21\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "EJq2xofF5F-a",
+        "outputId": "49428482-4efe-475f-e70d-69d6cfe3c9ff"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Live acquisition: {'timestamp': 1785228346.88121, 'running_processes': 13, 'cpu_percent': 0.0}\n",
+            "Dead acquisition: {'hard_disk_files': ['a.txt', 'b.txt'], 'ram_data': None}\n",
+            "Experiment 4: All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "import time, json, psutil\n",
+        "\n",
+        "def live_acquisition():\n",
+        "    return {\n",
+        "        \"timestamp\": time.time(),\n",
+        "        \"running_processes\": len(psutil.pids()),\n",
+        "        \"cpu_percent\": psutil.cpu_percent(interval=0.1)\n",
+        "    }\n",
+        "\n",
+        "def dead_acquisition(snapshot_file):\n",
+        "    with open(snapshot_file) as f:\n",
+        "        return json.load(f)\n",
+        "\n",
+        "dead_snapshot_path = \"system_snapshot.json\"\n",
+        "static_snapshot = {\"hard_disk_files\": [\"a.txt\", \"b.txt\"], \"ram_data\": None}\n",
+        "\n",
+        "with open(dead_snapshot_path, \"w\") as f:\n",
+        "    json.dump(static_snapshot, f)\n",
+        "\n",
+        "live_result = live_acquisition()\n",
+        "dead_result = dead_acquisition(dead_snapshot_path)\n",
+        "\n",
+        "print(\"Live acquisition:\", live_result)\n",
+        "print(\"Dead acquisition:\", dead_result)\n",
+        "\n",
+        "def test_experiment4():\n",
+        "    assert live_result[\"running_processes\"] > 0\n",
+        "    assert isinstance(live_result[\"cpu_percent\"], float)\n",
+        "    assert dead_result[\"ram_data\"] is None\n",
+        "    assert dead_result == static_snapshot\n",
+        "    print(\"Experiment 4: All test cases passed.\")\n",
+        "\n",
+        "test_experiment4()"
+      ]
+    }
+  ]
+}
