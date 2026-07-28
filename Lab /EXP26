@@ -1,0 +1,90 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyN0KCF9FwncKbpDFACoF7vZ",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP26\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "xWTKhNw58EGm",
+        "outputId": "cf58fdd3-bb2d-45d7-8165-9da163f1b869"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "FAT has permissions attribute: False\n",
+            "NTFS has permissions attribute: True\n",
+            "EXT has permissions attribute: True\n",
+            "Experiment 9: All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "class FATFileEntry:\n",
+        "    def __init__(self, name, size):\n",
+        "        self.name = name\n",
+        "        self.size = size\n",
+        "\n",
+        "class NTFSFileEntry:\n",
+        "    def __init__(self, name, size, permissions=\"rw-r--r--\"):\n",
+        "        self.name = name\n",
+        "        self.size = size\n",
+        "        self.permissions = permissions\n",
+        "        self.journal_entry = f\"WRITE {name} {size} bytes\"\n",
+        "\n",
+        "class EXTFileEntry:\n",
+        "    def __init__(self, name, size, permissions=\"rw-r--r--\"):\n",
+        "        self.name = name\n",
+        "        self.size = size\n",
+        "        self.permissions = permissions\n",
+        "        self.journal_entry = f\"WRITE {name} {size} bytes\"\n",
+        "\n",
+        "fat_file = FATFileEntry(\"data.txt\", 1024)\n",
+        "ntfs_file = NTFSFileEntry(\"data.txt\", 1024)\n",
+        "ext_file = EXTFileEntry(\"data.txt\", 1024)\n",
+        "\n",
+        "print(\"FAT has permissions attribute:\", hasattr(fat_file, \"permissions\"))\n",
+        "print(\"NTFS has permissions attribute:\", hasattr(ntfs_file, \"permissions\"))\n",
+        "print(\"EXT has permissions attribute:\", hasattr(ext_file, \"permissions\"))\n",
+        "\n",
+        "def test_experiment9():\n",
+        "    assert not hasattr(fat_file, \"permissions\")\n",
+        "    assert not hasattr(fat_file, \"journal_entry\")\n",
+        "    assert hasattr(ntfs_file, \"permissions\") and hasattr(ntfs_file, \"journal_entry\")\n",
+        "    assert hasattr(ext_file, \"permissions\") and hasattr(ext_file, \"journal_entry\")\n",
+        "    print(\"Experiment 9: All test cases passed.\")\n",
+        "\n",
+        "test_experiment9()"
+      ]
+    }
+  ]
+}
