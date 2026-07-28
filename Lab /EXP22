@@ -1,0 +1,78 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyM4BWt5NqFTMc9CHfHouKvw",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP22\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "8MbnhgoX5wIH",
+        "outputId": "98a2c582-f95d-48c9-dfb0-28c96e062471"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Forensic image size: 72\n",
+            "Duplication size: 9\n",
+            "Experiment 5: All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "raw_disk_full = b\"FILE1DATA\" + b\"\\x00\" * 15 + b\"DELETED_FILE_DATA\" + b\"\\x00\" * 15 + b\"FREE_SPACE_00000\"\n",
+        "\n",
+        "def create_forensic_image(raw_bytes):\n",
+        "    return bytes(raw_bytes)\n",
+        "\n",
+        "def create_duplication(raw_bytes, active_regions):\n",
+        "    return b\"\".join(raw_bytes[start:end] for start, end in active_regions)\n",
+        "\n",
+        "active_regions = [(0, 9)]\n",
+        "\n",
+        "forensic_image = create_forensic_image(raw_disk_full)\n",
+        "duplication_copy = create_duplication(raw_disk_full, active_regions)\n",
+        "\n",
+        "print(\"Forensic image size:\", len(forensic_image))\n",
+        "print(\"Duplication size:\", len(duplication_copy))\n",
+        "\n",
+        "def test_experiment5():\n",
+        "    assert len(forensic_image) == len(raw_disk_full)\n",
+        "    assert b\"DELETED_FILE_DATA\" in forensic_image\n",
+        "    assert b\"DELETED_FILE_DATA\" not in duplication_copy\n",
+        "    assert len(duplication_copy) < len(forensic_image)\n",
+        "    print(\"Experiment 5: All test cases passed.\")\n",
+        "\n",
+        "test_experiment5()"
+      ]
+    }
+  ]
+}
