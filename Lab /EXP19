@@ -1,0 +1,99 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNug4Sn+BJhvjd3KrAHjQGk",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP19\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 3,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "09jydRw-4Nk3",
+        "outputId": "b1a61fe0-27a6-4f93-de5a-19101ffe7b40"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Volatile evidence -> running processes: 15\n",
+            "Non-volatile evidence -> disk files: {'disk_files': ['browser_history.txt', 'chat_message.txt', 'email_log.txt', 'system_log.txt'], 'file_count': 4}\n",
+            "Experiment 2: All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "import os, psutil\n",
+        "\n",
+        "evidence_dir = \"digital_evidence\"\n",
+        "\n",
+        "sample_evidence = {\n",
+        "    \"email_log.txt\": \"\",\n",
+        "    \"browser_history.txt\": \"\",\n",
+        "    \"chat_message.txt\": \"\",\n",
+        "    \"system_log.txt\": \"\"\n",
+        "}\n",
+        "\n",
+        "def capture_volatile_evidence():\n",
+        "    processes = [p.info for p in psutil.process_iter(['pid', 'name'])]\n",
+        "    return {\n",
+        "        \"running_process_count\": len(processes),\n",
+        "        \"sample_processes\": processes[:5]\n",
+        "    }\n",
+        "\n",
+        "def capture_nonvolatile_evidence(folder):\n",
+        "    files = sorted(os.listdir(folder))\n",
+        "    return {\"disk_files\": files, \"file_count\": len(files)}\n",
+        "\n",
+        "# Create the directory if it does not exist\n",
+        "os.makedirs(evidence_dir, exist_ok=True)\n",
+        "\n",
+        "# Create the sample evidence files\n",
+        "for filename in sample_evidence:\n",
+        "    with open(os.path.join(evidence_dir, filename), 'w') as f:\n",
+        "        f.write(\"\") # Create an empty file\n",
+        "\n",
+        "volatile_snapshot = capture_volatile_evidence()\n",
+        "nonvolatile_snapshot = capture_nonvolatile_evidence(evidence_dir)\n",
+        "\n",
+        "print(\"Volatile evidence -> running processes:\", volatile_snapshot[\"running_process_count\"])\n",
+        "print(\"Non-volatile evidence -> disk files:\", nonvolatile_snapshot)\n",
+        "\n",
+        "def test_experiment2():\n",
+        "    assert volatile_snapshot[\"running_process_count\"] > 0\n",
+        "    assert isinstance(volatile_snapshot[\"sample_processes\"], list)\n",
+        "    assert nonvolatile_snapshot[\"file_count\"] == len(sample_evidence)\n",
+        "    snapshot2 = capture_nonvolatile_evidence(evidence_dir)\n",
+        "    assert snapshot2 == nonvolatile_snapshot\n",
+        "    print(\"Experiment 2: All test cases passed.\")\n",
+        "\n",
+        "test_experiment2()"
+      ]
+    }
+  ]
+}
