@@ -1,0 +1,102 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMPZ7Nt8W4ExDMagi1vBDlz",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP18\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import os, hashlib\n",
+        "\n",
+        "evidence_dir = \"digital_evidence\"\n",
+        "os.makedirs(evidence_dir, exist_ok=True)\n",
+        "\n",
+        "sample_evidence = {\n",
+        "    \"email_log.txt\": \"From: attacker@mail.com\\nTo: victim@mail.com\\nSubject: Invoice\\nPlease pay immediately.\",\n",
+        "    \"browser_history.txt\": \"http://malicious-site.com/login\\nhttp://bank.com/transfer\",\n",
+        "    \"chat_message.txt\": \"Hey, did you send the file?\",\n",
+        "    \"system_log.txt\": \"2026-07-24 10:15:32 - USB device connected: E:\\\\\"\n",
+        "}\n",
+        "\n",
+        "for filename, content in sample_evidence.items():\n",
+        "    with open(os.path.join(evidence_dir, filename), \"w\") as f:\n",
+        "        f.write(content)\n",
+        "\n",
+        "def catalog_evidence(folder):\n",
+        "    catalog = []\n",
+        "    for fname in sorted(os.listdir(folder)):\n",
+        "        path = os.path.join(folder, fname)\n",
+        "        with open(path, \"rb\") as f:\n",
+        "            data = f.read()\n",
+        "        catalog.append({\n",
+        "            \"filename\": fname,\n",
+        "            \"size_bytes\": os.path.getsize(path),\n",
+        "            \"md5\": hashlib.md5(data).hexdigest()\n",
+        "        })\n",
+        "    return catalog\n",
+        "\n",
+        "evidence_catalog = catalog_evidence(evidence_dir)\n",
+        "\n",
+        "for item in evidence_catalog:\n",
+        "    print(item)\n",
+        "\n",
+        "def test_experiment1():\n",
+        "    assert os.path.isdir(evidence_dir)\n",
+        "    assert len(evidence_catalog) == len(sample_evidence)\n",
+        "    filenames = [e[\"filename\"] for e in evidence_catalog]\n",
+        "    for expected in sample_evidence:\n",
+        "        assert expected in filenames\n",
+        "    for entry in evidence_catalog:\n",
+        "        assert entry[\"size_bytes\"] > 0\n",
+        "        assert len(entry[\"md5\"]) == 32\n",
+        "    print(\"Experiment 1: All test cases passed.\")\n",
+        "\n",
+        "test_experiment1()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "AGGnjBOO32H7",
+        "outputId": "63744929-2542-4f81-b62f-c3f7cb83befe"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "{'filename': 'browser_history.txt', 'size_bytes': 56, 'md5': '7804eb386588e70e52f8e44985aae9ab'}\n",
+            "{'filename': 'chat_message.txt', 'size_bytes': 27, 'md5': 'e5f0758dbf1fe3c48005ea2560fa5279'}\n",
+            "{'filename': 'email_log.txt', 'size_bytes': 84, 'md5': '94d472f8d614b91afc7ab2f56ddb435d'}\n",
+            "{'filename': 'system_log.txt', 'size_bytes': 47, 'md5': '5731691a0851b79317771c6e09f5c53b'}\n",
+            "Experiment 1: All test cases passed.\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
