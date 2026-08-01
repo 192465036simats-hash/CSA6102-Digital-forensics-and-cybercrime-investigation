@@ -1,0 +1,76 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyN/rqRdt4U+Pyd/3P6QcTkb",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Error%20Analysis/exp3\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Tth9q32tfbb2",
+        "outputId": "b4422f57-b18a-4225-cbfc-228fc9f50d94"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "['10.0.0.5']\n"
+          ]
+        }
+      ],
+      "source": [
+        "def detect_bruteforce(log_lines, threshold=5):\n",
+        "    ip_counts = {}\n",
+        "\n",
+        "    for line in log_lines:\n",
+        "        if 'FAILED LOGIN' in line:\n",
+        "            parts = line.split(' ')\n",
+        "            ip = parts[4]\n",
+        "            ip_counts[ip] = ip_counts.get(ip, 0) + 1\n",
+        "\n",
+        "    flagged = []\n",
+        "\n",
+        "    for ip, count in ip_counts.items():\n",
+        "        if count >= threshold:\n",
+        "            flagged.append(ip)\n",
+        "\n",
+        "    return flagged\n",
+        "\n",
+        "log = [\n",
+        "    'FAILED LOGIN user=admin from 10.0.0.5',\n",
+        "    'FAILED LOGIN user=admin from 10.0.0.5',\n",
+        "    'FAILED LOGIN user=root from 10.0.0.5'\n",
+        "]\n",
+        "\n",
+        "print(detect_bruteforce(log, threshold=2))"
+      ]
+    }
+  ]
+}
