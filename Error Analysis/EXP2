@@ -1,0 +1,75 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMLjurzFpkPbQ0BSZPhqOT2",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Error%20Analysis/EXP2\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "M0MddTNvfF9m",
+        "outputId": "cb5acb14-a8fe-438e-91ff-21ab6016820a"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "http://192.168.1.10/verify-account -> True\n",
+            "https://mybank.com/login -> True\n"
+          ]
+        }
+      ],
+      "source": [
+        "import re\n",
+        "\n",
+        "def is_suspicious(url):\n",
+        "    ip_pattern = r'\\d+\\.\\d+\\.\\d+\\.\\d+'\n",
+        "    suspicious_words = ('verify', 'update', 'secure', 'login')\n",
+        "\n",
+        "    if re.search(ip_pattern, url):\n",
+        "        return True\n",
+        "\n",
+        "    for word in suspicious_words:\n",
+        "        if word in url:\n",
+        "            return True\n",
+        "\n",
+        "    return False\n",
+        "\n",
+        "urls = [\n",
+        "    'http://192.168.1.10/verify-account',\n",
+        "    'https://mybank.com/login'\n",
+        "]\n",
+        "\n",
+        "for u in urls:\n",
+        "    print(u, '->', is_suspicious(u))"
+      ]
+    }
+  ]
+}
