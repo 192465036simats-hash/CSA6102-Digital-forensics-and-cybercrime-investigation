@@ -1,0 +1,78 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMeiGoHV+zHnV456pjqtdMy",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Error%20Analysis/EP5\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "nEP6aUBLhBw0",
+        "outputId": "4edcbef8-ac9a-4d4a-bd15-8e2c4228ffbb"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "RAM : Volatile\n",
+            "Hard Disk : Non-Volatile\n",
+            "Cache : Volatile\n",
+            "Registry Files : Non-Volatile\n"
+          ]
+        }
+      ],
+      "source": [
+        "volatile_sources = [\n",
+        "    'RAM',\n",
+        "    'Cache',\n",
+        "    'Running Processes',\n",
+        "    'Network Connections',\n",
+        "    'Swap File'\n",
+        "]\n",
+        "\n",
+        "def classify(source):\n",
+        "    if source in volatile_sources:\n",
+        "        return 'Volatile'\n",
+        "    else:\n",
+        "        return 'Non-Volatile'\n",
+        "\n",
+        "evidence_sources = [\n",
+        "    'RAM',\n",
+        "    'Hard Disk',\n",
+        "    'Cache',\n",
+        "    'Registry Files'\n",
+        "]\n",
+        "\n",
+        "for src in evidence_sources:\n",
+        "    print(src, ':', classify(src))"
+      ]
+    }
+  ]
+}
