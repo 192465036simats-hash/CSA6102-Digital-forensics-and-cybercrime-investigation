@@ -1,0 +1,70 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMW9mg7h4MUTtzqaohUrov8",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Error%20Analysis/EXP1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Cbu8a3deeiNF",
+        "outputId": "8a8aa2d2-30ed-4eb5-f97c-29e122a86863"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Phishing\n"
+          ]
+        }
+      ],
+      "source": [
+        "def classify_incident(description):\n",
+        "    categories = {\n",
+        "        'Phishing': ['fake email', 'login link', 'credential'],\n",
+        "        'Ransomware': ['encrypted files', 'ransom note', 'bitcoin'],\n",
+        "        'Identity Theft': ['stolen identity', 'aadhaar', 'pan card']\n",
+        "    }\n",
+        "\n",
+        "    description = description.lower()\n",
+        "\n",
+        "    for category, keywords in categories.items():\n",
+        "        for word in keywords:\n",
+        "            if word in description:\n",
+        "                return category\n",
+        "\n",
+        "    return 'Unclassified'\n",
+        "\n",
+        "result = classify_incident('Victim received a fake email with a login link')\n",
+        "print(result)"
+      ]
+    }
+  ]
+}
