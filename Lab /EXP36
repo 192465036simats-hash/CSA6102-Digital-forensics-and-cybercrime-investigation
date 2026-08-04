@@ -1,0 +1,150 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNFRuScpyAHnAWv1YCudDuQ",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP36\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Lni0G7Qu8exA",
+        "outputId": "47af967b-af67-4f6a-a355-98e513404ee0"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Recovered Deleted Messages\n",
+            "\n",
+            "Row ID  : 2\n",
+            "Number  : +1-555-0199\n",
+            "Message : Transfer the funds now, delete after reading\n",
+            "Date    : 2026-01-02\n",
+            "\n",
+            "Summary\n",
+            "Active Messages      : 1\n",
+            "Recoverable Messages : 1\n",
+            "Permanently Lost     : 1\n",
+            "\n",
+            "All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "def recover_deleted_messages(sms_table):\n",
+        "    recoverable = [\n",
+        "        row\n",
+        "        for row in sms_table\n",
+        "        if row[\"is_deleted\"] and not row[\"overwritten\"]\n",
+        "    ]\n",
+        "\n",
+        "    return recoverable\n",
+        "\n",
+        "\n",
+        "def summarize_table(sms_table):\n",
+        "    active = [\n",
+        "        r for r in sms_table\n",
+        "        if not r[\"is_deleted\"]\n",
+        "    ]\n",
+        "\n",
+        "    recoverable = recover_deleted_messages(sms_table)\n",
+        "\n",
+        "    lost = [\n",
+        "        r for r in sms_table\n",
+        "        if r[\"is_deleted\"] and r[\"overwritten\"]\n",
+        "    ]\n",
+        "\n",
+        "    return {\n",
+        "        \"active\": len(active),\n",
+        "        \"recoverable\": len(recoverable),\n",
+        "        \"permanently_lost\": len(lost)\n",
+        "    }\n",
+        "\n",
+        "\n",
+        "sms_table = [\n",
+        "    {\n",
+        "        \"rowid\": 1,\n",
+        "        \"address\": \"+1-555-0101\",\n",
+        "        \"body\": \"See you at 6pm\",\n",
+        "        \"date\": \"2026-01-01\",\n",
+        "        \"is_deleted\": False,\n",
+        "        \"overwritten\": False\n",
+        "    },\n",
+        "    {\n",
+        "        \"rowid\": 2,\n",
+        "        \"address\": \"+1-555-0199\",\n",
+        "        \"body\": \"Transfer the funds now, delete after reading\",\n",
+        "        \"date\": \"2026-01-02\",\n",
+        "        \"is_deleted\": True,\n",
+        "        \"overwritten\": False\n",
+        "    },\n",
+        "    {\n",
+        "        \"rowid\": 3,\n",
+        "        \"address\": \"+1-555-0150\",\n",
+        "        \"body\": \"Old spam message\",\n",
+        "        \"date\": \"2025-06-01\",\n",
+        "        \"is_deleted\": True,\n",
+        "        \"overwritten\": True\n",
+        "    }\n",
+        "]\n",
+        "\n",
+        "recoverable = recover_deleted_messages(sms_table)\n",
+        "\n",
+        "print(\"Recovered Deleted Messages\\n\")\n",
+        "\n",
+        "for msg in recoverable:\n",
+        "    print(\"Row ID  :\", msg[\"rowid\"])\n",
+        "    print(\"Number  :\", msg[\"address\"])\n",
+        "    print(\"Message :\", msg[\"body\"])\n",
+        "    print(\"Date    :\", msg[\"date\"])\n",
+        "    print()\n",
+        "\n",
+        "summary = summarize_table(sms_table)\n",
+        "\n",
+        "print(\"Summary\")\n",
+        "print(\"Active Messages      :\", summary[\"active\"])\n",
+        "print(\"Recoverable Messages :\", summary[\"recoverable\"])\n",
+        "print(\"Permanently Lost     :\", summary[\"permanently_lost\"])\n",
+        "\n",
+        "assert len(recoverable) == 1\n",
+        "assert recoverable[0][\"rowid\"] == 2\n",
+        "assert \"Transfer the funds\" in recoverable[0][\"body\"]\n",
+        "\n",
+        "assert summary == {\n",
+        "    \"active\": 1,\n",
+        "    \"recoverable\": 1,\n",
+        "    \"permanently_lost\": 1\n",
+        "}\n",
+        "\n",
+        "print(\"\\nAll test cases passed.\")"
+      ]
+    }
+  ]
+}
