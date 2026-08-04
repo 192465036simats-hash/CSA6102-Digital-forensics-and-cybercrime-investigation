@@ -1,0 +1,136 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNjCcuBaUFNrKAmLn25IuwA",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP35\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Jgr-wDHI76GG",
+        "outputId": "c4ac0c5e-0a25-4425-ba91-2f2af6cf9844"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "IDS Alert Results\n",
+            "\n",
+            "Packet Index : 1\n",
+            "Signature ID : 1000001\n",
+            "Alert Name   : Possible SQL Injection\n",
+            "\n",
+            "Packet Index : 2\n",
+            "Signature ID : 1000002\n",
+            "Alert Name   : Directory Traversal Attempt\n",
+            "\n",
+            "All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "SIGNATURES = [\n",
+        "    {\n",
+        "        \"sid\": 1000001,\n",
+        "        \"name\": \"Possible SQL Injection\",\n",
+        "        \"pattern\": \"union select\"\n",
+        "    },\n",
+        "    {\n",
+        "        \"sid\": 1000002,\n",
+        "        \"name\": \"Directory Traversal Attempt\",\n",
+        "        \"pattern\": \"../../../etc/passwd\"\n",
+        "    },\n",
+        "    {\n",
+        "        \"sid\": 1000003,\n",
+        "        \"name\": \"Nmap Scripting Engine User-Agent\",\n",
+        "        \"pattern\": \"nmap scripting engine\"\n",
+        "    },\n",
+        "]\n",
+        "\n",
+        "def scan_payloads(packets, signatures=SIGNATURES):\n",
+        "    alerts = []\n",
+        "\n",
+        "    for idx, pkt in enumerate(packets):\n",
+        "        payload_lower = pkt[\"payload\"].lower()\n",
+        "\n",
+        "        for sig in signatures:\n",
+        "            if sig[\"pattern\"] in payload_lower:\n",
+        "                alerts.append({\n",
+        "                    \"packet_index\": idx,\n",
+        "                    \"sid\": sig[\"sid\"],\n",
+        "                    \"name\": sig[\"name\"]\n",
+        "                })\n",
+        "\n",
+        "    return alerts\n",
+        "\n",
+        "\n",
+        "packets = [\n",
+        "    {\n",
+        "        \"payload\": \"GET /products?id=1 HTTP/1.1\"\n",
+        "    },\n",
+        "    {\n",
+        "        \"payload\": \"GET /login?user=admin' UNION SELECT username,password FROM users-- HTTP/1.1\"\n",
+        "    },\n",
+        "    {\n",
+        "        \"payload\": \"GET /download?file=../../../etc/passwd HTTP/1.1\"\n",
+        "    }\n",
+        "]\n",
+        "\n",
+        "alerts = scan_payloads(packets)\n",
+        "\n",
+        "print(\"IDS Alert Results\\n\")\n",
+        "\n",
+        "for alert in alerts:\n",
+        "    print(\"Packet Index :\", alert[\"packet_index\"])\n",
+        "    print(\"Signature ID :\", alert[\"sid\"])\n",
+        "    print(\"Alert Name   :\", alert[\"name\"])\n",
+        "    print()\n",
+        "\n",
+        "alert_indices = {a[\"packet_index\"] for a in alerts}\n",
+        "\n",
+        "assert 0 not in alert_indices\n",
+        "assert 1 in alert_indices\n",
+        "assert 2 in alert_indices\n",
+        "\n",
+        "assert any(\n",
+        "    a[\"name\"] == \"Possible SQL Injection\"\n",
+        "    for a in alerts\n",
+        ")\n",
+        "\n",
+        "assert any(\n",
+        "    a[\"name\"] == \"Directory Traversal Attempt\"\n",
+        "    for a in alerts\n",
+        ")\n",
+        "\n",
+        "print(\"All test cases passed.\")"
+      ]
+    }
+  ]
+}
