@@ -1,0 +1,130 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPQGF9d78yJxQPrmk3Q9Cqg",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP34\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "NpQdVn3j7B6c",
+        "outputId": "a5d0122c-ff85-4f8a-ae97-83fb106f5a08"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "DNS Tunneling Detection Results\n",
+            "\n",
+            "Query : a8f3k2j9x1p7q4z6w0n5r2t8y3.exfil-domain.com\n",
+            "Label Length : 26\n",
+            "Entropy : 4.47\n",
+            "\n",
+            "Query : 9c2e7b1a4f8d3c6e0a5b9d2f7c1e4a8b3d6f9c2e5a8b1d4f.tunnel.example.net\n",
+            "Label Length : 48\n",
+            "Entropy : 3.92\n",
+            "\n",
+            "All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "import math\n",
+        "from collections import Counter\n",
+        "\n",
+        "def shannon_entropy(s):\n",
+        "    if not s:\n",
+        "        return 0.0\n",
+        "\n",
+        "    counts = Counter(s)\n",
+        "    length = len(s)\n",
+        "\n",
+        "    return -sum(\n",
+        "        (c / length) * math.log2(c / length)\n",
+        "        for c in counts.values()\n",
+        "    )\n",
+        "\n",
+        "\n",
+        "def detect_dns_tunneling(\n",
+        "    queries,\n",
+        "    length_threshold=20,\n",
+        "    entropy_threshold=3.5\n",
+        "):\n",
+        "    flagged = []\n",
+        "\n",
+        "    for q in queries:\n",
+        "        label = q.split(\".\")[0]\n",
+        "        entropy = shannon_entropy(label)\n",
+        "\n",
+        "        if (\n",
+        "            len(label) >= length_threshold\n",
+        "            and entropy >= entropy_threshold\n",
+        "        ):\n",
+        "            flagged.append({\n",
+        "                \"query\": q,\n",
+        "                \"label_length\": len(label),\n",
+        "                \"entropy\": round(entropy, 2)\n",
+        "            })\n",
+        "\n",
+        "    return flagged\n",
+        "\n",
+        "\n",
+        "queries = [\n",
+        "    \"www.google.com\",\n",
+        "    \"mail.office365.com\",\n",
+        "    \"a8f3k2j9x1p7q4z6w0n5r2t8y3.exfil-domain.com\",\n",
+        "    \"vpn.corporate-network.com\",\n",
+        "    \"9c2e7b1a4f8d3c6e0a5b9d2f7c1e4a8b3d6f9c2e5a8b1d4f.tunnel.example.net\",\n",
+        "]\n",
+        "\n",
+        "flagged = detect_dns_tunneling(queries)\n",
+        "\n",
+        "print(\"DNS Tunneling Detection Results\\n\")\n",
+        "\n",
+        "for item in flagged:\n",
+        "    print(\"Query :\", item[\"query\"])\n",
+        "    print(\"Label Length :\", item[\"label_length\"])\n",
+        "    print(\"Entropy :\", item[\"entropy\"])\n",
+        "    print()\n",
+        "\n",
+        "flagged_domains = [f[\"query\"] for f in flagged]\n",
+        "\n",
+        "assert \"www.google.com\" not in flagged_domains\n",
+        "assert \"mail.office365.com\" not in flagged_domains\n",
+        "assert \"vpn.corporate-network.com\" not in flagged_domains\n",
+        "assert \"a8f3k2j9x1p7q4z6w0n5r2t8y3.exfil-domain.com\" in flagged_domains\n",
+        "assert \"9c2e7b1a4f8d3c6e0a5b9d2f7c1e4a8b3d6f9c2e5a8b1d4f.tunnel.example.net\" in flagged_domains\n",
+        "assert len(flagged) == 2\n",
+        "\n",
+        "print(\"All test cases passed.\")"
+      ]
+    }
+  ]
+}
