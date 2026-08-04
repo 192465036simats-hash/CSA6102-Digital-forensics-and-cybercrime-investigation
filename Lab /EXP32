@@ -1,0 +1,124 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPQbV4h0AIDSZHovUPIPOqg",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP32\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Ul1CKHu25rcp",
+        "outputId": "ef926820-5942-4fec-b10f-417036c20331"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Normal File Analysis\n",
+            "Suspicious: False\n",
+            "Reasons: []\n",
+            "\n",
+            "Tampered File Analysis\n",
+            "Suspicious: True\n",
+            "- Modified time is earlier than Born (creation) time\n",
+            "- MFT Changed time is 3201843 minutes after Modified time - metadata may have been altered after the fact\n",
+            "\n",
+            "All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "from datetime import datetime\n",
+        "\n",
+        "TS_FMT = \"%Y-%m-%d %H:%M:%S\"\n",
+        "\n",
+        "def detect_timestomping(file_meta, change_gap_minutes=60):\n",
+        "    m = datetime.strptime(file_meta[\"modified\"], TS_FMT)\n",
+        "    a = datetime.strptime(file_meta[\"accessed\"], TS_FMT)\n",
+        "    c = datetime.strptime(file_meta[\"changed\"], TS_FMT)\n",
+        "    b = datetime.strptime(file_meta[\"born\"], TS_FMT)\n",
+        "\n",
+        "    reasons = []\n",
+        "\n",
+        "    if m < b:\n",
+        "        reasons.append(\n",
+        "            \"Modified time is earlier than Born (creation) time\"\n",
+        "        )\n",
+        "\n",
+        "    if a < b:\n",
+        "        reasons.append(\n",
+        "            \"Accessed time is earlier than Born (creation) time\"\n",
+        "        )\n",
+        "\n",
+        "    gap_minutes = abs((c - m).total_seconds()) / 60\n",
+        "\n",
+        "    if gap_minutes > change_gap_minutes and c > m:\n",
+        "        reasons.append(\n",
+        "            f\"MFT Changed time is {gap_minutes:.0f} minutes after Modified time - metadata may have been altered after the fact\"\n",
+        "        )\n",
+        "\n",
+        "    return (len(reasons) > 0, reasons)\n",
+        "\n",
+        "\n",
+        "normal_file = {\n",
+        "    \"born\": \"2026-01-10 09:00:00\",\n",
+        "    \"modified\": \"2026-01-10 09:05:00\",\n",
+        "    \"accessed\": \"2026-01-12 14:00:00\",\n",
+        "    \"changed\": \"2026-01-10 09:05:00\",\n",
+        "}\n",
+        "\n",
+        "tampered_file = {\n",
+        "    \"born\": \"2026-02-01 12:00:00\",\n",
+        "    \"modified\": \"2020-01-01 00:00:00\",\n",
+        "    \"accessed\": \"2026-02-01 12:00:00\",\n",
+        "    \"changed\": \"2026-02-01 12:03:00\",\n",
+        "}\n",
+        "\n",
+        "print(\"Normal File Analysis\")\n",
+        "is_susp1, reasons1 = detect_timestomping(normal_file)\n",
+        "print(\"Suspicious:\", is_susp1)\n",
+        "print(\"Reasons:\", reasons1)\n",
+        "\n",
+        "print(\"\\nTampered File Analysis\")\n",
+        "is_susp2, reasons2 = detect_timestomping(tampered_file)\n",
+        "print(\"Suspicious:\", is_susp2)\n",
+        "\n",
+        "for reason in reasons2:\n",
+        "    print(\"-\", reason)\n",
+        "\n",
+        "assert is_susp1 is False\n",
+        "assert is_susp2 is True\n",
+        "assert any(\"Modified time is earlier\" in r for r in reasons2)\n",
+        "\n",
+        "print(\"\\nAll test cases passed.\")"
+      ]
+    }
+  ]
+}
