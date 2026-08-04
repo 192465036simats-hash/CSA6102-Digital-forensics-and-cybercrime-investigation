@@ -1,0 +1,150 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPsCMJXXpdf+3nURI/25O3W",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP33\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "kcGRUANI6xoo",
+        "outputId": "e96d3194-9744-433b-cb31-1abb2f6780a8"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Port Scan Detection Results:\n",
+            "\n",
+            "Source IP : 203.0.113.99\n",
+            "Target IP : 10.0.0.10\n",
+            "Distinct Ports Scanned : 12\n",
+            "Ports : [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]\n",
+            "\n",
+            "All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "from datetime import datetime, timedelta\n",
+        "\n",
+        "PKT_FMT = \"%Y-%m-%d %H:%M:%S\"\n",
+        "\n",
+        "def detect_port_scan(packets, port_threshold=10, window_seconds=30):\n",
+        "    packets = sorted(\n",
+        "        packets,\n",
+        "        key=lambda p: datetime.strptime(p[\"timestamp\"], PKT_FMT)\n",
+        "    )\n",
+        "\n",
+        "    by_pair = {}\n",
+        "\n",
+        "    for p in packets:\n",
+        "        key = (p[\"src_ip\"], p[\"dst_ip\"])\n",
+        "        by_pair.setdefault(key, []).append(p)\n",
+        "\n",
+        "    results = {}\n",
+        "\n",
+        "    for key, pkts in by_pair.items():\n",
+        "\n",
+        "        for i in range(len(pkts)):\n",
+        "            start = datetime.strptime(\n",
+        "                pkts[i][\"timestamp\"],\n",
+        "                PKT_FMT\n",
+        "            )\n",
+        "\n",
+        "            end = start + timedelta(seconds=window_seconds)\n",
+        "\n",
+        "            ports_in_window = {\n",
+        "                p[\"dst_port\"]\n",
+        "                for p in pkts\n",
+        "                if start <= datetime.strptime(\n",
+        "                    p[\"timestamp\"],\n",
+        "                    PKT_FMT\n",
+        "                ) <= end\n",
+        "            }\n",
+        "\n",
+        "            if len(ports_in_window) >= port_threshold:\n",
+        "                results[key] = {\n",
+        "                    \"distinct_ports\": len(ports_in_window),\n",
+        "                    \"ports\": sorted(ports_in_window),\n",
+        "                }\n",
+        "                break\n",
+        "\n",
+        "    return results\n",
+        "\n",
+        "\n",
+        "packets = []\n",
+        "\n",
+        "base = datetime(2026, 3, 1, 10, 0, 0)\n",
+        "\n",
+        "for i, port in enumerate(range(20, 32)):\n",
+        "    packets.append({\n",
+        "        \"src_ip\": \"203.0.113.99\",\n",
+        "        \"dst_ip\": \"10.0.0.10\",\n",
+        "        \"dst_port\": port,\n",
+        "        \"timestamp\": (\n",
+        "            base + timedelta(seconds=2 * i)\n",
+        "        ).strftime(PKT_FMT),\n",
+        "    })\n",
+        "\n",
+        "for i in range(5):\n",
+        "    packets.append({\n",
+        "        \"src_ip\": \"10.0.0.20\",\n",
+        "        \"dst_ip\": \"10.0.0.30\",\n",
+        "        \"dst_port\": 443,\n",
+        "        \"timestamp\": (\n",
+        "            base + timedelta(seconds=5 * i)\n",
+        "        ).strftime(PKT_FMT),\n",
+        "    })\n",
+        "\n",
+        "results = detect_port_scan(\n",
+        "    packets,\n",
+        "    port_threshold=10,\n",
+        "    window_seconds=30\n",
+        ")\n",
+        "\n",
+        "print(\"Port Scan Detection Results:\\n\")\n",
+        "\n",
+        "for pair, details in results.items():\n",
+        "    print(\"Source IP :\", pair[0])\n",
+        "    print(\"Target IP :\", pair[1])\n",
+        "    print(\"Distinct Ports Scanned :\", details[\"distinct_ports\"])\n",
+        "    print(\"Ports :\", details[\"ports\"])\n",
+        "    print()\n",
+        "\n",
+        "assert (\"203.0.113.99\", \"10.0.0.10\") in results\n",
+        "assert results[(\"203.0.113.99\", \"10.0.0.10\")][\"distinct_ports\"] >= 10\n",
+        "assert (\"10.0.0.20\", \"10.0.0.30\") not in results\n",
+        "\n",
+        "print(\"All test cases passed.\")"
+      ]
+    }
+  ]
+}
