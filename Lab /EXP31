@@ -1,0 +1,127 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNOr0D/+wh1aQkSE9qKN6z0",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP31\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "cH22Sabj5Rly",
+        "outputId": "1d8a3e05-0903-4ef3-d46a-fb6867d1083b"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Parsed Log Entries:\n",
+            "{'result': 'Accepted', 'user': 'deploy', 'ip': '10.0.0.5', 'port': 51100, 'raw': 'Jan 15 08:00:01 server sshd[1001]: Accepted password for deploy from 10.0.0.5 port 51100 ssh2'}\n",
+            "{'result': 'Failed', 'user': 'root', 'ip': '198.51.100.23', 'port': 51320, 'raw': 'Jan 15 03:12:01 server sshd[1233]: Failed password for root from 198.51.100.23 port 51320 ssh2'}\n",
+            "{'result': 'Accepted', 'user': 'root', 'ip': '198.51.100.23', 'port': 51322, 'raw': 'Jan 15 03:12:05 server sshd[1234]: Accepted password for root from 198.51.100.23 port 51322 ssh2'}\n",
+            "\n",
+            "Suspicious Login Alerts:\n",
+            "{'result': 'Accepted', 'user': 'root', 'ip': '198.51.100.23', 'port': 51322, 'raw': 'Jan 15 03:12:05 server sshd[1234]: Accepted password for root from 198.51.100.23 port 51322 ssh2', 'severity': 'HIGH'}\n",
+            "\n",
+            "All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "import re\n",
+        "\n",
+        "AUTH_LINE_RE = re.compile(\n",
+        "    r\"(?P<result>Accepted|Failed) password for (?P<user>\\S+) from (?P<ip>[\\d.]+) port (?P<port>\\d+)\"\n",
+        ")\n",
+        "\n",
+        "def parse_auth_log(lines):\n",
+        "    entries = []\n",
+        "\n",
+        "    for line in lines:\n",
+        "        match = AUTH_LINE_RE.search(line)\n",
+        "\n",
+        "        if match:\n",
+        "            entries.append({\n",
+        "                \"result\": match.group(\"result\"),\n",
+        "                \"user\": match.group(\"user\"),\n",
+        "                \"ip\": match.group(\"ip\"),\n",
+        "                \"port\": int(match.group(\"port\")),\n",
+        "                \"raw\": line,\n",
+        "            })\n",
+        "\n",
+        "    return entries\n",
+        "\n",
+        "\n",
+        "def flag_suspicious_logins(entries, trusted_ips):\n",
+        "    flagged = []\n",
+        "\n",
+        "    for e in entries:\n",
+        "        if e[\"result\"] == \"Accepted\" and e[\"ip\"] not in trusted_ips:\n",
+        "\n",
+        "            severity = \"HIGH\" if e[\"user\"] == \"root\" else \"MEDIUM\"\n",
+        "\n",
+        "            flagged.append({\n",
+        "                **e,\n",
+        "                \"severity\": severity\n",
+        "            })\n",
+        "\n",
+        "    return flagged\n",
+        "\n",
+        "\n",
+        "log_lines = [\n",
+        "    \"Jan 15 08:00:01 server sshd[1001]: Accepted password for deploy from 10.0.0.5 port 51100 ssh2\",\n",
+        "    \"Jan 15 03:12:01 server sshd[1233]: Failed password for root from 198.51.100.23 port 51320 ssh2\",\n",
+        "    \"Jan 15 03:12:05 server sshd[1234]: Accepted password for root from 198.51.100.23 port 51322 ssh2\",\n",
+        "]\n",
+        "\n",
+        "trusted_ips = {\"10.0.0.5\"}\n",
+        "\n",
+        "entries = parse_auth_log(log_lines)\n",
+        "\n",
+        "print(\"Parsed Log Entries:\")\n",
+        "for entry in entries:\n",
+        "    print(entry)\n",
+        "\n",
+        "flagged = flag_suspicious_logins(entries, trusted_ips)\n",
+        "\n",
+        "print(\"\\nSuspicious Login Alerts:\")\n",
+        "for alert in flagged:\n",
+        "    print(alert)\n",
+        "\n",
+        "assert len(entries) == 3\n",
+        "assert len(flagged) == 1\n",
+        "assert flagged[0][\"user\"] == \"root\"\n",
+        "assert flagged[0][\"ip\"] == \"198.51.100.23\"\n",
+        "assert flagged[0][\"severity\"] == \"HIGH\"\n",
+        "\n",
+        "print(\"\\nAll test cases passed.\")"
+      ]
+    }
+  ]
+}
