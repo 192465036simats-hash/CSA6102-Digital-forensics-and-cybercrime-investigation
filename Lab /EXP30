@@ -1,0 +1,154 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMMXZsjnMdxrZzwDvFgrf67",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP30\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "AwWSOqk34mmq",
+        "outputId": "09841d59-5763-445f-d523-6a70a9823a18"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "USB Device History\n",
+            "\n",
+            "Device Name : SanDisk Cruzer Blade\n",
+            "Serial No   : 4C531001234\n",
+            "First Seen  : 2025-11-01 09:00:00\n",
+            "Last Seen   : 2026-02-10 17:42:00\n",
+            "\n",
+            "Device Name : Kingston DataTraveler\n",
+            "Serial No   : A1002233\n",
+            "First Seen  : 2024-06-01 10:00:00\n",
+            "Last Seen   : 2024-06-01 10:15:00\n",
+            "\n",
+            "Devices Connected Near Incident Time:\n",
+            "SanDisk Cruzer Blade\n",
+            "\n",
+            "All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "from datetime import datetime\n",
+        "\n",
+        "def parse_usbstor(registry_data):\n",
+        "    devices = []\n",
+        "\n",
+        "    for device_id, info in registry_data.items():\n",
+        "        entry = {\"device_id\": device_id}\n",
+        "        entry.update(info)\n",
+        "        devices.append(entry)\n",
+        "\n",
+        "    devices.sort(\n",
+        "        key=lambda d: datetime.strptime(\n",
+        "            d[\"last_connected\"],\n",
+        "            \"%Y-%m-%d %H:%M:%S\"\n",
+        "        ),\n",
+        "        reverse=True\n",
+        "    )\n",
+        "\n",
+        "    return devices\n",
+        "\n",
+        "\n",
+        "def find_device_near_time(devices, target_time_str, window_minutes=30):\n",
+        "    target = datetime.strptime(\n",
+        "        target_time_str,\n",
+        "        \"%Y-%m-%d %H:%M:%S\"\n",
+        "    )\n",
+        "\n",
+        "    matches = []\n",
+        "\n",
+        "    for d in devices:\n",
+        "        last = datetime.strptime(\n",
+        "            d[\"last_connected\"],\n",
+        "            \"%Y-%m-%d %H:%M:%S\"\n",
+        "        )\n",
+        "\n",
+        "        delta_minutes = abs(\n",
+        "            (target - last).total_seconds()\n",
+        "        ) / 60\n",
+        "\n",
+        "        if delta_minutes <= window_minutes:\n",
+        "            matches.append(d)\n",
+        "\n",
+        "    return matches\n",
+        "\n",
+        "\n",
+        "registry_data = {\n",
+        "    \"USB\\\\VID_0781&PID_5567\\\\4C531001234\": {\n",
+        "        \"serial\": \"4C531001234\",\n",
+        "        \"friendly_name\": \"SanDisk Cruzer Blade\",\n",
+        "        \"first_connected\": \"2025-11-01 09:00:00\",\n",
+        "        \"last_connected\": \"2026-02-10 17:42:00\",\n",
+        "    },\n",
+        "    \"USB\\\\VID_090C&PID_1000\\\\A1002233\": {\n",
+        "        \"serial\": \"A1002233\",\n",
+        "        \"friendly_name\": \"Kingston DataTraveler\",\n",
+        "        \"first_connected\": \"2024-06-01 10:00:00\",\n",
+        "        \"last_connected\": \"2024-06-01 10:15:00\",\n",
+        "    },\n",
+        "}\n",
+        "\n",
+        "devices = parse_usbstor(registry_data)\n",
+        "\n",
+        "print(\"USB Device History\")\n",
+        "for device in devices:\n",
+        "    print(\"\\nDevice Name :\", device[\"friendly_name\"])\n",
+        "    print(\"Serial No   :\", device[\"serial\"])\n",
+        "    print(\"First Seen  :\", device[\"first_connected\"])\n",
+        "    print(\"Last Seen   :\", device[\"last_connected\"])\n",
+        "\n",
+        "matches = find_device_near_time(\n",
+        "    devices,\n",
+        "    \"2026-02-10 17:35:00\",\n",
+        "    window_minutes=30\n",
+        ")\n",
+        "\n",
+        "print(\"\\nDevices Connected Near Incident Time:\")\n",
+        "for m in matches:\n",
+        "    print(m[\"friendly_name\"])\n",
+        "\n",
+        "assert devices[0][\"friendly_name\"] == \"SanDisk Cruzer Blade\"\n",
+        "\n",
+        "matched_names = [m[\"friendly_name\"] for m in matches]\n",
+        "\n",
+        "assert \"SanDisk Cruzer Blade\" in matched_names\n",
+        "assert \"Kingston DataTraveler\" not in matched_names\n",
+        "\n",
+        "print(\"\\nAll test cases passed.\")"
+      ]
+    }
+  ]
+}
