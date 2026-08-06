@@ -1,0 +1,96 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOCx+I55JZPFyLvanHfZwJp",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP38\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "IPXXjDFolyjY",
+        "outputId": "e4112d3e-abba-44e8-d925-09d25a32cbe3"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "import hashlib\n",
+        "import math\n",
+        "import os\n",
+        "from collections import Counter\n",
+        "\n",
+        "def sha256_hash(data: bytes) -> str:\n",
+        "    return hashlib.sha256(data).hexdigest()\n",
+        "\n",
+        "def byte_entropy(data: bytes) -> float:\n",
+        "    if not data:\n",
+        "        return 0.0\n",
+        "\n",
+        "    counts = Counter(data)\n",
+        "    length = len(data)\n",
+        "\n",
+        "    return -sum(\n",
+        "        (c / length) * math.log2(c / length)\n",
+        "        for c in counts.values()\n",
+        "    )\n",
+        "\n",
+        "def static_analyze(data: bytes, entropy_threshold=7.5):\n",
+        "    return {\n",
+        "        \"sha256\": sha256_hash(data),\n",
+        "        \"size_bytes\": len(data),\n",
+        "        \"entropy\": round(byte_entropy(data), 2),\n",
+        "        \"likely_packed\": byte_entropy(data) >= entropy_threshold\n",
+        "    }\n",
+        "\n",
+        "plain_sample = (b\"This is a normal configuration file. \" * 20)\n",
+        "random_sample = os.urandom(2000)\n",
+        "\n",
+        "plain_result = static_analyze(plain_sample)\n",
+        "random_result = static_analyze(random_sample)\n",
+        "\n",
+        "assert len(plain_result[\"sha256\"]) == 64\n",
+        "assert plain_result[\"entropy\"] < 5.0\n",
+        "assert plain_result[\"likely_packed\"] is False\n",
+        "\n",
+        "assert random_result[\"entropy\"] >= 7.5\n",
+        "assert random_result[\"likely_packed\"] is True\n",
+        "\n",
+        "assert sha256_hash(plain_sample) == sha256_hash(plain_sample)\n",
+        "\n",
+        "print(\"All test cases passed.\")"
+      ]
+    }
+  ]
+}
