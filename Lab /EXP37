@@ -1,0 +1,129 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPCTjh33/6N8QN9UvVClp/T",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Lab%20/EXP37\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "xYiYittjlgbK",
+        "outputId": "ff9f7a2c-0929-4e38-eae0-49dd63d41ef0"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "All test cases passed.\n"
+          ]
+        }
+      ],
+      "source": [
+        "from datetime import datetime\n",
+        "from collections import Counter\n",
+        "\n",
+        "LOG_FMT = \"%Y-%m-%d %H:%M:%S\"\n",
+        "\n",
+        "def build_baseline_ips(logs):\n",
+        "    by_user = {}\n",
+        "\n",
+        "    for entry in logs:\n",
+        "        by_user.setdefault(entry[\"user\"], []).append(entry[\"ip\"])\n",
+        "\n",
+        "    return {\n",
+        "        user: Counter(ips).most_common(1)[0][0]\n",
+        "        for user, ips in by_user.items()\n",
+        "    }\n",
+        "\n",
+        "def flag_anomalous_downloads(logs, business_start=8, business_end=20):\n",
+        "    baseline = build_baseline_ips(logs)\n",
+        "    flagged = []\n",
+        "\n",
+        "    for entry in logs:\n",
+        "        if entry[\"action\"] != \"download\":\n",
+        "            continue\n",
+        "\n",
+        "        ts = datetime.strptime(entry[\"timestamp\"], LOG_FMT)\n",
+        "        reasons = []\n",
+        "\n",
+        "        if entry[\"ip\"] != baseline.get(entry[\"user\"]):\n",
+        "            reasons.append(\"IP differs from user baseline\")\n",
+        "\n",
+        "        if not (business_start <= ts.hour < business_end):\n",
+        "            reasons.append(\"Outside business hours\")\n",
+        "\n",
+        "        if reasons:\n",
+        "            flagged.append({**entry, \"reasons\": reasons})\n",
+        "\n",
+        "    return flagged\n",
+        "\n",
+        "logs = [\n",
+        "    {\n",
+        "        \"user\": \"alice\",\n",
+        "        \"action\": \"view\",\n",
+        "        \"file\": \"roadmap.docx\",\n",
+        "        \"timestamp\": \"2026-03-01 10:00:00\",\n",
+        "        \"ip\": \"10.0.0.5\"\n",
+        "    },\n",
+        "    {\n",
+        "        \"user\": \"alice\",\n",
+        "        \"action\": \"view\",\n",
+        "        \"file\": \"budget.xlsx\",\n",
+        "        \"timestamp\": \"2026-03-02 11:00:00\",\n",
+        "        \"ip\": \"10.0.0.5\"\n",
+        "    },\n",
+        "    {\n",
+        "        \"user\": \"alice\",\n",
+        "        \"action\": \"download\",\n",
+        "        \"file\": \"report.pdf\",\n",
+        "        \"timestamp\": \"2026-03-03 14:00:00\",\n",
+        "        \"ip\": \"10.0.0.5\"\n",
+        "    },\n",
+        "    {\n",
+        "        \"user\": \"alice\",\n",
+        "        \"action\": \"download\",\n",
+        "        \"file\": \"customer_database.csv\",\n",
+        "        \"timestamp\": \"2026-03-05 02:15:00\",\n",
+        "        \"ip\": \"185.220.101.7\"\n",
+        "    }\n",
+        "]\n",
+        "\n",
+        "flagged = flag_anomalous_downloads(logs)\n",
+        "\n",
+        "assert len(flagged) == 1\n",
+        "assert flagged[0][\"file\"] == \"customer_database.csv\"\n",
+        "assert \"IP differs from user baseline\" in flagged[0][\"reasons\"]\n",
+        "assert \"Outside business hours\" in flagged[0][\"reasons\"]\n",
+        "\n",
+        "print(\"All test cases passed.\")"
+      ]
+    }
+  ]
+}
