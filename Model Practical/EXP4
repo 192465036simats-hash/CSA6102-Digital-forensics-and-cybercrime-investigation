@@ -1,0 +1,75 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMZL835JE6t3O5ouq73EQP5",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP4\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Y4y25O-PnMDa",
+        "outputId": "b192c702-0935-4233-df07-1e8854328ee9"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Persistent Activity: ('192.168.1.5', 22) Attempts: 3\n",
+            "Timestamps:\n",
+            "('10:00', '192.168.1.5', 22)\n",
+            "('10:05', '192.168.1.5', 22)\n",
+            "('10:10', '192.168.1.5', 22)\n",
+            "('10:15', '192.168.1.8', 23)\n"
+          ]
+        }
+      ],
+      "source": [
+        "logs=[\n",
+        "(\"10:00\",\"192.168.1.5\",22),\n",
+        "(\"10:05\",\"192.168.1.5\",22),\n",
+        "(\"10:10\",\"192.168.1.5\",22),\n",
+        "(\"10:15\",\"192.168.1.8\",23)\n",
+        "]\n",
+        "\n",
+        "count={}\n",
+        "for t,ip,port in logs:\n",
+        "    count[(ip,port)]=count.get((ip,port),0)+1\n",
+        "\n",
+        "for k,v in count.items():\n",
+        "    if v>2:\n",
+        "        print(\"Persistent Activity:\",k,\"Attempts:\",v)\n",
+        "\n",
+        "print(\"Timestamps:\")\n",
+        "for x in logs:\n",
+        "    print(x)"
+      ]
+    }
+  ]
+}
