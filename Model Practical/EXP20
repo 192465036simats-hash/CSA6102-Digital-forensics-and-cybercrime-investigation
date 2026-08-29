@@ -1,0 +1,63 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOHARgnFTAz7ZZcmsIRpd9t",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "2IH31dqKshtP",
+        "outputId": "fb43dff5-35c1-49d4-e7e6-bb1333061659"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "google.com ['Google', '1997']\n",
+            "youtube.com ['Google', '2005']\n",
+            "Common Registrar: Google\n"
+          ]
+        }
+      ],
+      "source": [
+        "domains = {\n",
+        "\"google.com\":[\"Google\",\"1997\"],\n",
+        "\"youtube.com\":[\"Google\",\"2005\"]\n",
+        "}\n",
+        "\n",
+        "for d,v in domains.items():\n",
+        "    print(d,v)\n",
+        "\n",
+        "print(\"Common Registrar: Google\")"
+      ]
+    }
+  ]
+}
