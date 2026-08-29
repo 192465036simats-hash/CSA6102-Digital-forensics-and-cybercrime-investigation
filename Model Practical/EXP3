@@ -1,0 +1,81 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOcHlvCjdXNW9RZWaMnnVyX",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP3\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "lhgzB-YnmdR1",
+        "outputId": "4c90e4d4-6879-46af-bc89-7793d7c6e090"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Activity Log:\n",
+            "report.docx Madhuri MS Word 10:00 Open\n",
+            "project.pdf Anu Adobe 10:15 Open\n",
+            "report.docx Rahul MS Word 10:30 Open\n",
+            "notes.txt Madhuri Notepad 10:45 Edit\n",
+            "\n",
+            "Most Recent Document:\n",
+            "notes.txt - 10:45\n",
+            "\n",
+            "Files Accessed by More Than One User:\n",
+            "report.docx -> ['Madhuri', 'Rahul']\n"
+          ]
+        }
+      ],
+      "source": [
+        "logs = [\n",
+        "    (\"report.docx\", \"Madhuri\", \"MS Word\", \"10:00\", \"Open\"),\n",
+        "    (\"project.pdf\", \"Anu\", \"Adobe\", \"10:15\", \"Open\"),\n",
+        "    (\"report.docx\", \"Rahul\", \"MS Word\", \"10:30\", \"Open\"),\n",
+        "    (\"notes.txt\", \"Madhuri\", \"Notepad\", \"10:45\", \"Edit\")\n",
+        "]\n",
+        "print(\"Activity Log:\")\n",
+        "for doc, user, app, time, act in logs:\n",
+        "    print(doc, user, app, time, act)\n",
+        "print(\"\\nMost Recent Document:\")\n",
+        "recent = max(logs, key=lambda x: x[3])\n",
+        "print(recent[0], \"-\", recent[3])\n",
+        "print(\"\\nFiles Accessed by More Than One User:\")\n",
+        "docs = {}\n",
+        "for doc, user, app, time, act in logs:\n",
+        "    docs.setdefault(doc, set()).add(user)\n",
+        "for doc, users in docs.items():\n",
+        "    if len(users) > 1:\n",
+        "        print(doc, \"->\", list(users))"
+      ]
+    }
+  ]
+}
