@@ -1,0 +1,62 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyP5FHLIKeb7hezU3pPam26k",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP6\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "q16mR2rlnuLc",
+        "outputId": "6db276a5-9c05-474c-f074-4777210d4293"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Camera Different\n",
+            "Time Identical\n",
+            "Size Identical\n"
+          ]
+        }
+      ],
+      "source": [
+        "img1={\"Camera\":\"Canon\",\"Time\":\"10:00\",\"Size\":\"1920x1080\"}\n",
+        "img2={\"Camera\":\"Nikon\",\"Time\":\"10:00\",\"Size\":\"1920x1080\"}\n",
+        "\n",
+        "for k in img1:\n",
+        "    if img1[k]==img2[k]:\n",
+        "        print(k,\"Identical\")\n",
+        "    else:\n",
+        "        print(k,\"Different\")"
+      ]
+    }
+  ]
+}
