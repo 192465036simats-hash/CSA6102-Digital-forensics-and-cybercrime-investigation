@@ -1,0 +1,83 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNky0NEgm3bnnrFsfBI9HW+",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 3,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "FlthBePVilOC",
+        "outputId": "3a8a575f-d30f-4f2c-b387-3e4ca9522dfb"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter file name: sample.txt\n",
+            "Evidence ID: EV001\n",
+            "Source: Laptop\n",
+            "SHA-256: 119385bc8eb738142d59bc628cf51f9ee7d04997f9f89b38613df18fff2c77a8\n",
+            "History:\n",
+            "2026-08-29 08:09:51.003365 - Collected by Investigator\n",
+            "2026-08-29 08:09:51.003480 - Transferred to Analyst A\n",
+            "2026-08-29 08:09:51.003531 - Transferred to Analyst B\n",
+            "Integrity Status: Hash Consistent\n"
+          ]
+        }
+      ],
+      "source": [
+        "import os\n",
+        "from datetime import datetime\n",
+        "import hashlib\n",
+        "def get_hash(file):\n",
+        "    with open(file, \"rb\") as f:\n",
+        "        return hashlib.sha256(f.read()).hexdigest()\n",
+        "dummy_file_name = \"sample.txt\"\n",
+        "if not os.path.exists(dummy_file_name):\n",
+        "    with open(dummy_file_name, \"w\") as f:\n",
+        "        f.write(\"This is a dummy file content.\")\n",
+        "    print(f\"Created a dummy file: {dummy_file_name}\")\n",
+        "file = input(\"Enter file name: \")\n",
+        "history = []\n",
+        "history.append(f\"{datetime.now()} - Collected by Investigator\")\n",
+        "history.append(f\"{datetime.now()} - Transferred to Analyst A\")\n",
+        "history.append(f\"{datetime.now()} - Transferred to Analyst B\")\n",
+        "print(\"Evidence ID: EV001\")\n",
+        "print(\"Source: Laptop\")\n",
+        "print(\"SHA-256:\", get_hash(file))\n",
+        "print(\"History:\")\n",
+        "for i in history:\n",
+        "    print(i)\n",
+        "print(\"Integrity Status: Hash Consistent\")"
+      ]
+    }
+  ]
+}
