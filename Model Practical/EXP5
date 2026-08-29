@@ -1,0 +1,65 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMaR2qJvsmHxSCzs/UkXY0E",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP5\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "dPEOrHDQncYM",
+        "outputId": "6f115e34-c629-4466-dad2-073289ff8b6a"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "report.exe Warning: Extension and Content Mismatch\n",
+            "photo.jpg Normal\n",
+            "data.zip Warning: Extension and Content Mismatch\n"
+          ]
+        }
+      ],
+      "source": [
+        "files=[\n",
+        "(\"report.exe\",\".docx\",\"Executable\"),\n",
+        "(\"photo.jpg\",\".jpg\",\"Image\"),\n",
+        "(\"data.zip\",\".txt\",\"Archive\")\n",
+        "]\n",
+        "\n",
+        "for name,ext,sig in files:\n",
+        "    if ext==\".jpg\" and sig==\"Image\":\n",
+        "        print(name,\"Normal\")\n",
+        "    else:\n",
+        "        print(name,\"Warning: Extension and Content Mismatch\")"
+      ]
+    }
+  ]
+}
