@@ -1,0 +1,65 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNVsfEWlRn8lfYTcdEVd7Vn",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP14\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "cytifoxAqT9W",
+        "outputId": "a8f029ac-52e0-494c-f593-fbd53c187f91"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "File name: sample.txt\n",
+            "New Evidence Added\n"
+          ]
+        }
+      ],
+      "source": [
+        "import hashlib\n",
+        "\n",
+        "db = {}\n",
+        "\n",
+        "file = input(\"File name: \")\n",
+        "h = hashlib.sha256(file.encode()).hexdigest()\n",
+        "\n",
+        "if h in db:\n",
+        "    print(\"Match Found:\", db[h])\n",
+        "else:\n",
+        "    db[h] = file\n",
+        "    print(\"New Evidence Added\")"
+      ]
+    }
+  ]
+}
