@@ -1,0 +1,65 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOvG3Lxc1Yus9JlnT1vhHaO",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP15\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "utCJ6SH_rBjp",
+        "outputId": "93413963-639d-4469-8ca1-e5868244e02b"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "USB1 Madhuri 10:00\n",
+            "USB1 Madhuri 11:00\n",
+            "USB2 Anu 12:00\n",
+            "USB1 Connections: 2\n"
+          ]
+        }
+      ],
+      "source": [
+        "logs = [\n",
+        "(\"USB1\",\"Madhuri\",\"10:00\"),\n",
+        "(\"USB1\",\"Madhuri\",\"11:00\"),\n",
+        "(\"USB2\",\"Anu\",\"12:00\")\n",
+        "]\n",
+        "\n",
+        "for d,u,t in logs:\n",
+        "    print(d,u,t)\n",
+        "\n",
+        "print(\"USB1 Connections:\",2)"
+      ]
+    }
+  ]
+}
