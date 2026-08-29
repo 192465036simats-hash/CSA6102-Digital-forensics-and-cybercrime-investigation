@@ -1,0 +1,73 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMTmy+OHP98LUdiK4dlBIl4",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP13\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "1l9u90OYqDs6",
+        "outputId": "a86a5674-361f-496e-cd70-47207c878598"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "google.com -> 8.8.8.8\n",
+            "example.com -> 8.8.8.8\n",
+            "abc.com -> Failed\n",
+            "Shared IP:\n",
+            "8.8.8.8 ['google.com', 'example.com']\n"
+          ]
+        }
+      ],
+      "source": [
+        "domains={\n",
+        "\"google.com\":\"8.8.8.8\",\n",
+        "\"example.com\":\"8.8.8.8\",\n",
+        "\"abc.com\":\"Failed\"\n",
+        "}\n",
+        "\n",
+        "for d,ip in domains.items():\n",
+        "    print(d,\"->\",ip)\n",
+        "\n",
+        "print(\"Shared IP:\")\n",
+        "ips={}\n",
+        "for d,ip in domains.items():\n",
+        "    ips.setdefault(ip,[]).append(d)\n",
+        "\n",
+        "for ip,dom in ips.items():\n",
+        "    if len(dom)>1 and ip!=\"Failed\":\n",
+        "        print(ip,dom)"
+      ]
+    }
+  ]
+}
