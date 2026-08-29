@@ -1,0 +1,63 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPIapdPYjiL0kA5PilR7Vm8",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP10\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "YASK78_cpKQl",
+        "outputId": "17d48851-7feb-4f35-f335-7c82a7d507cb"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "FORENSIC REPORT\n",
+            "Observation: USB found\n",
+            "Evidence: EV001\n",
+            "Finding: Malware detected\n"
+          ]
+        }
+      ],
+      "source": [
+        "obs=\"USB found\"\n",
+        "evidence=\"EV001\"\n",
+        "finding=\"Malware detected\"\n",
+        "\n",
+        "print(\"FORENSIC REPORT\")\n",
+        "print(\"Observation:\",obs)\n",
+        "print(\"Evidence:\",evidence)\n",
+        "print(\"Finding:\",finding)"
+      ]
+    }
+  ]
+}
