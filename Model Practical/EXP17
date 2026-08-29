@@ -1,0 +1,60 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOmu9mqme15qmN6lXkKlQiS",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP17\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "GZZprmc2rviT",
+        "outputId": "340d73c1-e1ed-4e20-af4c-5136537ebbac"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "['EV001', 'Image', 'Laptop', 'Verified']\n",
+            "['EV002', 'Document', 'USB', 'Verified']\n"
+          ]
+        }
+      ],
+      "source": [
+        "evidence = [\n",
+        "[\"EV001\",\"Image\",\"Laptop\",\"Verified\"],\n",
+        "[\"EV002\",\"Document\",\"USB\",\"Verified\"]\n",
+        "]\n",
+        "\n",
+        "for e in evidence:\n",
+        "    print(e)"
+      ]
+    }
+  ]
+}
