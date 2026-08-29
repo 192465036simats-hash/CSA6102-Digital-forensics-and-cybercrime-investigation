@@ -1,0 +1,66 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPFjAmhi6qrDezeaLVGtxM2",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP7\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "SKCRW94WoKK4",
+        "outputId": "4a7aec72-c308-4427-86fd-52a347e9cb2d"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Anomaly: user1 logged in after failures\n"
+          ]
+        }
+      ],
+      "source": [
+        "logs=[\n",
+        "(\"user1\",\"Fail\"),\n",
+        "(\"user1\",\"Fail\"),\n",
+        "(\"user1\",\"Success\"),\n",
+        "(\"user2\",\"Success\")\n",
+        "]\n",
+        "\n",
+        "fails={}\n",
+        "\n",
+        "for u,s in logs:\n",
+        "    if s==\"Fail\":\n",
+        "        fails[u]=fails.get(u,0)+1\n",
+        "    elif s==\"Success\" and fails.get(u,0)>=2:\n",
+        "        print(\"Anomaly:\",u,\"logged in after failures\")"
+      ]
+    }
+  ]
+}
