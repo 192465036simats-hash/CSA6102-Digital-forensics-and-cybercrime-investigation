@@ -1,0 +1,60 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOr27M4+VQ2xdTqRXTXxoZE",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP56\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "AN3oiWIrElwX",
+        "outputId": "5e67ad03-c1c5-4d2a-895a-3fbe4c04d31f"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "g00gle.com Score: 1\n",
+            "google.com Score: 0\n"
+          ]
+        }
+      ],
+      "source": [
+        "domains = [\"g00gle.com\",\"google.com\"]\n",
+        "\n",
+        "for d in domains:\n",
+        "    score = 0\n",
+        "    if \"00\" in d:\n",
+        "        score += 1\n",
+        "    print(d,\"Score:\",score)"
+      ]
+    }
+  ]
+}
