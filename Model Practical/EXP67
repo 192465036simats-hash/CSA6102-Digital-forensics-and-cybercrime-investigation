@@ -1,0 +1,60 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMFxgQYSHUPPi/MaFc4oDoz",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP67\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "kJzLMk1yKYpQ",
+        "outputId": "f84b584e-cf0f-4afc-c6d2-a19c8579e4ac"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "a.txt High Risk\n"
+          ]
+        }
+      ],
+      "source": [
+        "files = [\n",
+        "(\"a.txt\",\"rwx\"),\n",
+        "(\"b.txt\",\"rw-\")\n",
+        "]\n",
+        "\n",
+        "for f,p in files:\n",
+        "    if p == \"rwx\":\n",
+        "        print(f,\"High Risk\")"
+      ]
+    }
+  ]
+}
