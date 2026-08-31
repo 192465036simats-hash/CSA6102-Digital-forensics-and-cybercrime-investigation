@@ -1,0 +1,60 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyO9DdbYpGd9j9+m47Krr1I9",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP73\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "2XohC9Q8MNiF",
+        "outputId": "49fd5862-aa78-46ef-efa2-63392a2bb189"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Threshold Exceeded\n"
+          ]
+        }
+      ],
+      "source": [
+        "logs = [\n",
+        "(\"user1\",\"1.1.1.1\"),\n",
+        "(\"user1\",\"1.1.1.1\"),\n",
+        "(\"user1\",\"1.1.1.1\")\n",
+        "]\n",
+        "\n",
+        "if len(logs) >= 3:\n",
+        "    print(\"Threshold Exceeded\")"
+      ]
+    }
+  ]
+}
