@@ -1,0 +1,59 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMcS58PJkYFiy0l5FGYE1tB",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP77\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ZZ3OYMKrNwlW",
+        "outputId": "00b568c1-fefb-4990-b82a-b0d10a47a624"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Possible Spoofing Indicator\n"
+          ]
+        }
+      ],
+      "source": [
+        "email = {\n",
+        "\"From\":\"abc@gmail.com\",\n",
+        "\"Reply-To\":\"fake@gmail.com\"\n",
+        "}\n",
+        "\n",
+        "if email[\"From\"] != email[\"Reply-To\"]:\n",
+        "    print(\"Possible Spoofing Indicator\")"
+      ]
+    }
+  ]
+}
