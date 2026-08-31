@@ -1,0 +1,62 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyM1+E3oxNa65ldgpeaMDCch",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP46\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Yk8FiTpA9o9b",
+        "outputId": "c4e06b7a-ce50-4279-e3e4-62adecce048c"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Camera : Canon\n",
+            "Date : 2026-08-31\n",
+            "GPS : Available\n"
+          ]
+        }
+      ],
+      "source": [
+        "meta = {\n",
+        "\"Camera\":\"Canon\",\n",
+        "\"Date\":\"2026-08-31\",\n",
+        "\"GPS\":\"Available\"\n",
+        "}\n",
+        "\n",
+        "for k,v in meta.items():\n",
+        "    print(k,\":\",v)"
+      ]
+    }
+  ]
+}
