@@ -1,0 +1,66 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOge+pavvfWGlINGQZKj5JJ",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP42\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "LFWGN6bE8IQd",
+        "outputId": "5e22dc7e-f030-41d7-eb7f-4b31e07539aa"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Port Scanning Detected\n"
+          ]
+        }
+      ],
+      "source": [
+        "logs = [\n",
+        "(\"1.1.1.1\",80),\n",
+        "(\"1.1.1.1\",21),\n",
+        "(\"1.1.1.1\",22),\n",
+        "(\"1.1.1.1\",23)\n",
+        "]\n",
+        "\n",
+        "ports = set()\n",
+        "\n",
+        "for ip,p in logs:\n",
+        "    ports.add(p)\n",
+        "\n",
+        "if len(ports) > 3:\n",
+        "    print(\"Port Scanning Detected\")"
+      ]
+    }
+  ]
+}
