@@ -1,0 +1,60 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMPtu732sB3485yUGmGAmLl",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP51\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "P-RjHP79Cxnz",
+        "outputId": "c014cf5a-62b2-4724-a3f0-d4b64afc7e90"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Suspicious: cmd.exe C:/Temp\n"
+          ]
+        }
+      ],
+      "source": [
+        "processes = [\n",
+        "(\"cmd.exe\",\"C:/Temp\"),\n",
+        "(\"chrome.exe\",\"C:/Program Files\")\n",
+        "]\n",
+        "\n",
+        "for p,path in processes:\n",
+        "    if \"Temp\" in path:\n",
+        "        print(\"Suspicious:\",p,path)"
+      ]
+    }
+  ]
+}
