@@ -1,0 +1,63 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOAHReDI+7W4HRYjw7CE5uH",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP22\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "yr-R_NdprVhZ",
+        "outputId": "7dd610e9-9e4d-4e28-ac65-61635f7b5a1b"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Missing: b.txt\n",
+            "New: c.txt\n"
+          ]
+        }
+      ],
+      "source": [
+        "baseline = {\"a.txt\":\"111\",\"b.txt\":\"222\"}\n",
+        "current = {\"a.txt\":\"111\",\"c.txt\":\"333\"}\n",
+        "\n",
+        "for f in baseline:\n",
+        "    if f not in current:\n",
+        "        print(\"Missing:\",f)\n",
+        "\n",
+        "for f in current:\n",
+        "    if f not in baseline:\n",
+        "        print(\"New:\",f)"
+      ]
+    }
+  ]
+}
