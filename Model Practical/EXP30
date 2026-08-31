@@ -1,0 +1,66 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyN5KtImEzG07bDFU3XW+6EH",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP30\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-bA4e9OauU8O",
+        "outputId": "fb7fe550-2b72-4d00-cdb8-2f8124af7900"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Duplicate Files: ['file1.txt', 'file2.txt']\n"
+          ]
+        }
+      ],
+      "source": [
+        "files = {\n",
+        "\"file1.txt\":\"abc\",\n",
+        "\"file2.txt\":\"abc\",\n",
+        "\"file3.txt\":\"xyz\"\n",
+        "}\n",
+        "\n",
+        "groups = {}\n",
+        "\n",
+        "for f,h in files.items():\n",
+        "    groups.setdefault(h, []).append(f)\n",
+        "\n",
+        "for h,flist in groups.items():\n",
+        "    if len(flist) > 1:\n",
+        "        print(\"Duplicate Files:\", flist)"
+      ]
+    }
+  ]
+}
