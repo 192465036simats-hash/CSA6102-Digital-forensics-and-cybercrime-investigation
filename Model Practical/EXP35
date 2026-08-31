@@ -1,0 +1,65 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyN8CF02dsUg+Flld7jz3O7O",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP35\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "bpXqTNhxyRXq",
+        "outputId": "a75cf65e-8dc6-41e3-92f0-34ff93870744"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Starting Point: ('10:00', 'malware.exe')\n",
+            "('10:00', 'malware.exe')\n",
+            "('10:05', 'Files Renamed')\n",
+            "('10:10', 'Network Connection')\n"
+          ]
+        }
+      ],
+      "source": [
+        "events = [\n",
+        "(\"10:00\",\"malware.exe\"),\n",
+        "(\"10:05\",\"Files Renamed\"),\n",
+        "(\"10:10\",\"Network Connection\")\n",
+        "]\n",
+        "\n",
+        "print(\"Starting Point:\",events[0])\n",
+        "\n",
+        "for e in events:\n",
+        "    print(e)"
+      ]
+    }
+  ]
+}
