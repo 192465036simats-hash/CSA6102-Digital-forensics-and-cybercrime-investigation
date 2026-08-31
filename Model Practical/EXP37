@@ -1,0 +1,60 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOlkqf0+QibWFlv+iedu+Ni",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP37\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "qAtB6K090MMv",
+        "outputId": "ae156ae5-bd88-4364-a0be-6d1d3b091bda"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "('mail1.com', '1.1.1.1')\n",
+            "('mail2.com', '2.2.2.2')\n"
+          ]
+        }
+      ],
+      "source": [
+        "headers = [\n",
+        "(\"mail1.com\",\"1.1.1.1\"),\n",
+        "(\"mail2.com\",\"2.2.2.2\")\n",
+        "]\n",
+        "\n",
+        "for h in headers:\n",
+        "    print(h)"
+      ]
+    }
+  ]
+}
