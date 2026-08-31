@@ -1,0 +1,62 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMLtxXGyPxDHYOozZD1CJEG",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP80\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "lYbfLXNzPHYL",
+        "outputId": "533f2971-1e99-4fa8-ae25-38cfc27de583"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Threat Match: 1.1.1.1 192.168.1.10 80\n"
+          ]
+        }
+      ],
+      "source": [
+        "threat_ips = [\"1.1.1.1\"]\n",
+        "\n",
+        "logs = [\n",
+        "(\"1.1.1.1\",\"192.168.1.10\",80),\n",
+        "(\"2.2.2.2\",\"192.168.1.20\",443)\n",
+        "]\n",
+        "\n",
+        "for ip,dst,port in logs:\n",
+        "    if ip in threat_ips:\n",
+        "        print(\"Threat Match:\",ip,dst,port)"
+      ]
+    }
+  ]
+}
