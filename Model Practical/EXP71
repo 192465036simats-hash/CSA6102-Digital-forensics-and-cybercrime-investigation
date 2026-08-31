@@ -1,0 +1,65 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMAjH8VG6cbnwsmvHs5Xk3m",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP71\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "02fZDGZzLvkZ",
+        "outputId": "386d8f8b-d047-4238-bc4d-39ebc1c848d9"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Earliest Suspicious Event: ('10:00', 'malware.exe')\n",
+            "('10:00', 'malware.exe')\n",
+            "('10:05', 'file renamed')\n",
+            "('10:10', 'network connection')\n"
+          ]
+        }
+      ],
+      "source": [
+        "events = [\n",
+        "(\"10:00\",\"malware.exe\"),\n",
+        "(\"10:05\",\"file renamed\"),\n",
+        "(\"10:10\",\"network connection\")\n",
+        "]\n",
+        "\n",
+        "print(\"Earliest Suspicious Event:\", events[0])\n",
+        "\n",
+        "for e in events:\n",
+        "    print(e)"
+      ]
+    }
+  ]
+}
