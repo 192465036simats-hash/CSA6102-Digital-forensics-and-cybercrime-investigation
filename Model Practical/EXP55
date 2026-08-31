@@ -1,0 +1,65 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPc3bf6KbANehSSpgx1sb4T",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP55\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "6fMaROboD-oN",
+        "outputId": "143d44ef-42ea-45d8-97e7-b31ca3a599d1"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "USB001 Authorized\n",
+            "USB999 Unauthorized\n"
+          ]
+        }
+      ],
+      "source": [
+        "authorized = [\"USB001\"]\n",
+        "\n",
+        "logs = [\n",
+        "(\"USB001\",\"Madhuri\"),\n",
+        "(\"USB999\",\"Anu\")\n",
+        "]\n",
+        "\n",
+        "for d,u in logs:\n",
+        "    if d in authorized:\n",
+        "        print(d,\"Authorized\")\n",
+        "    else:\n",
+        "        print(d,\"Unauthorized\")"
+      ]
+    }
+  ]
+}
