@@ -1,0 +1,61 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPayjQOUsg4aGm41PX7Fm9t",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP39\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "9JoNsoSB1_d-",
+        "outputId": "2678d767-243e-4782-ff45-ba8c2a72f745"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Flagged: 192.168.1.1\n"
+          ]
+        }
+      ],
+      "source": [
+        "logs = {\n",
+        "\"192.168.1.1\":[\"A\",\"B\",\"C\",\"D\"],\n",
+        "\"192.168.1.2\":[\"A\"]\n",
+        "}\n",
+        "\n",
+        "for ip,dest in logs.items():\n",
+        "    if len(dest)>3:\n",
+        "        print(\"Flagged:\",ip)\n",
+        ""
+      ]
+    }
+  ]
+}
