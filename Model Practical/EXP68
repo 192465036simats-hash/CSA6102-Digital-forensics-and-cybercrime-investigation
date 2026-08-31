@@ -1,0 +1,60 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPZLttY8X65A/Uhpb1HvfiG",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP68\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "aaEnyZOqKwhL",
+        "outputId": "8aa27b49-5d91-45b0-e916-67486dddcfa3"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Repeated Login Failures\n"
+          ]
+        }
+      ],
+      "source": [
+        "logs = [\n",
+        "(\"user1\",\"1.1.1.1\",\"Fail\"),\n",
+        "(\"user1\",\"1.1.1.1\",\"Fail\"),\n",
+        "(\"user1\",\"1.1.1.1\",\"Fail\")\n",
+        "]\n",
+        "\n",
+        "if len(logs) >= 3:\n",
+        "    print(\"Repeated Login Failures\")"
+      ]
+    }
+  ]
+}
