@@ -1,0 +1,62 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyM+ApU5rFttQ3MNiKuYHMYq",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP41\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "id": "4x6ZEPTI32pa",
+        "outputId": "2836b44b-cc02-4739-97f8-4c982f6e4aec",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Before: {'modified': '10:00'}\n",
+            "After : {'modified': '10:05'}\n",
+            "Interaction Trace Detected\n"
+          ]
+        }
+      ],
+      "source": [
+        "before = {\"modified\":\"10:00\"}\n",
+        "after = {\"modified\":\"10:05\"}\n",
+        "\n",
+        "print(\"Before:\", before)\n",
+        "print(\"After :\", after)\n",
+        "\n",
+        "if before != after:\n",
+        "    print(\"Interaction Trace Detected\")"
+      ]
+    }
+  ]
+}
