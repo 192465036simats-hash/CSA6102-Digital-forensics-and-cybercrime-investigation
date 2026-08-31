@@ -1,0 +1,62 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNrwUdLFDj/HzY84mx+ClXH",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP52\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "yGHpvj5dDAeD",
+        "outputId": "2561724e-d357-4ca4-b9db-2d8dd784524f"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "High Traffic Volume Detected\n"
+          ]
+        }
+      ],
+      "source": [
+        "traffic = [\n",
+        "(\"192.168.1.1\",500),\n",
+        "(\"192.168.1.1\",600),\n",
+        "(\"192.168.1.1\",700)\n",
+        "]\n",
+        "\n",
+        "total = sum(x[1] for x in traffic)\n",
+        "\n",
+        "if total > 1000:\n",
+        "    print(\"High Traffic Volume Detected\")"
+      ]
+    }
+  ]
+}
