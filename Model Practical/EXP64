@@ -1,0 +1,59 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPACJwFjFlJcqH5/3us1Kg0",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP64\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "2U4-18C9JH1_",
+        "outputId": "313dd107-33e1-4467-a33b-d163b5ad224d"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "['test@gmail.com']\n",
+            "['192.168.1.1']\n"
+          ]
+        }
+      ],
+      "source": [
+        "import re\n",
+        "\n",
+        "text = \"Email: test@gmail.com IP: 192.168.1.1 URL: http://abc.com\"\n",
+        "\n",
+        "print(re.findall(r'\\S+@\\S+',text))\n",
+        "print(re.findall(r'\\d+\\.\\d+\\.\\d+\\.\\d+',text))"
+      ]
+    }
+  ]
+}
