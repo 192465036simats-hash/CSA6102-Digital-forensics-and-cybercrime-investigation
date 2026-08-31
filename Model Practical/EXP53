@@ -1,0 +1,61 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyP5uKhbZFYyjMIPn4JESKdM",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP53\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "7_jdwxMnDXfa",
+        "outputId": "2051c7a7-9021-42ac-ab72-cfec0c45d7a4"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter Domain: google.com\n",
+            "IP: 173.194.206.138\n"
+          ]
+        }
+      ],
+      "source": [
+        "import socket\n",
+        "\n",
+        "domain = input(\"Enter Domain: \")\n",
+        "\n",
+        "try:\n",
+        "    print(\"IP:\",socket.gethostbyname(domain))\n",
+        "except:\n",
+        "    print(\"Domain Not Found\")"
+      ]
+    }
+  ]
+}
