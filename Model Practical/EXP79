@@ -1,0 +1,59 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMgxp3mFk2yo7SFO8ykac3B",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP79\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "kRbfJdzkOs1_",
+        "outputId": "6b34dd5c-2a04-42cd-a840-886228d2b00e"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Case ID : C001\n",
+            "Evidence : EV001\n",
+            "Finding : Malware Detected\n",
+            "Conclusion : Investigation Completed\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(\"Case ID : C001\")\n",
+        "print(\"Evidence : EV001\")\n",
+        "print(\"Finding : Malware Detected\")\n",
+        "print(\"Conclusion : Investigation Completed\")"
+      ]
+    }
+  ]
+}
