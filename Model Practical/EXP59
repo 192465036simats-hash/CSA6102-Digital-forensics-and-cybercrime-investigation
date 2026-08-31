@@ -1,0 +1,64 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPIFMQrG5SJDjr3wrv/hcRf",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP59\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "6kiN5Dm2Fi92",
+        "outputId": "bf96da05-6e27-4871-fcb2-fbb2e4981caf"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "('10:00', 'Login')\n",
+            "('10:05', 'File Open')\n",
+            "('10:10', 'Network Access')\n"
+          ]
+        }
+      ],
+      "source": [
+        "events = [\n",
+        "(\"10:00\",\"Login\"),\n",
+        "(\"10:05\",\"File Open\"),\n",
+        "(\"10:10\",\"Network Access\")\n",
+        "]\n",
+        "\n",
+        "events.sort()\n",
+        "\n",
+        "for e in events:\n",
+        "    print(e)"
+      ]
+    }
+  ]
+}
