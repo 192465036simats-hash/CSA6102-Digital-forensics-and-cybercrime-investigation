@@ -1,0 +1,61 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMa+KILlFP9mDLiEUytSSWD",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP48\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "id": "v5DZyBWk-K0a",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "8fa3e1a0-cd95-4947-cb9e-9ae8e2620dda"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Anomaly: HTTP 900\n"
+          ]
+        }
+      ],
+      "source": [
+        "traffic = [\n",
+        "(\"HTTP\",100),\n",
+        "(\"HTTP\",120),\n",
+        "(\"HTTP\",900)\n",
+        "]\n",
+        "\n",
+        "for p,v in traffic:\n",
+        "    if v > 500:\n",
+        "        print(\"Anomaly:\",p,v)"
+      ]
+    }
+  ]
+}
