@@ -1,0 +1,61 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyO/H1arqiSXyQlimTwbRpkV",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP63\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "DheoD8m8IkNW",
+        "outputId": "d2efce6a-2204-45ab-d08d-7a1a4542b1a9"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Visible File: report.doc\n",
+            "Hidden File: .secret\n",
+            "Visible File: notes.txt\n"
+          ]
+        }
+      ],
+      "source": [
+        "files = [\"report.doc\",\".secret\",\"notes.txt\"]\n",
+        "\n",
+        "for f in files:\n",
+        "    if f.startswith(\".\"):\n",
+        "        print(\"Hidden File:\",f)\n",
+        "    else:\n",
+        "        print(\"Visible File:\",f)"
+      ]
+    }
+  ]
+}
