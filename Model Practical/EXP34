@@ -1,0 +1,57 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMhnVxK3+7B40BMrbPrIX6o",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP34\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "CzhE8UIhxcXC",
+        "outputId": "f0d3105e-b91e-4a94-afaa-1d71372e8286"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "report.pdf.exe Hidden Executable\n"
+          ]
+        }
+      ],
+      "source": [
+        "files = [\"report.pdf.exe\",\"photo.jpg\",\"data..txt\"]\n",
+        "\n",
+        "for f in files:\n",
+        "    if \".exe\" in f and \".pdf\" in f:\n",
+        "        print(f,\"Hidden Executable\")"
+      ]
+    }
+  ]
+}
