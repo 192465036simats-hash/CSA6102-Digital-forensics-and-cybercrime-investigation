@@ -1,0 +1,62 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyM7sZDoq3rmlYEZVs6ZjPwJ",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192465036simats-hash/CSA6102-Digital-forensics-and-cybercrime-investigation/blob/main/Model%20Practical/EXP76\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "HDZbp4BVNSnl",
+        "outputId": "026d02c8-90fc-46b8-f2b3-79bca0a6c36f"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "('10:00', 'Detection')\n",
+            "('10:30', 'Containment')\n",
+            "('11:00', 'Recovery')\n"
+          ]
+        }
+      ],
+      "source": [
+        "timeline = [\n",
+        "(\"10:00\",\"Detection\"),\n",
+        "(\"10:30\",\"Containment\"),\n",
+        "(\"11:00\",\"Recovery\")\n",
+        "]\n",
+        "\n",
+        "for t in timeline:\n",
+        "    print(t)"
+      ]
+    }
+  ]
+}
